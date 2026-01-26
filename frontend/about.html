@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | CareConnect Courier</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#8b0000',
+            darkRed: '#660000',
+            black: '#000',
+            white: '#fff',
+            lightBg: '#f9f9f9',
+            gray: '#666',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-lightBg text-gray-800">
+
+  <!-- NAVBAR -->
+  <header class="bg-white sticky top-0 z-50 shadow-md">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-xl font-bold text-darkRed">
+        <i class="fas fa-truck-fast text-primary"></i> CareConnect <span class="text-primary">Courier</span>
+      </a>
+
+      <button id="menuBtn" class="md:hidden text-2xl">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="hidden md:flex space-x-6 font-medium">
+        <ul class="nav-links flex space-x-6">
+          <li><a href="index.html" class="hover:text-primary">Home</a></li>
+          <li><a href="services.html" class="hover:text-primary">Services</a></li>
+          <li><a href="tracking.html" class="hover:text-primary">Tracking</a></li>
+          <li><a href="about.html" class="hover:text-primary">About</a></li>
+          <li><a href="faq.html" class="hover:text-primary">FAQ</a></li>
+          <li><a href="login.html" class="hover:text-primary">Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="hidden bg-white md:hidden">
+    <a href="index.html" class="block px-6 py-3 border-b border-gray-200">Home</a>
+    <a href="services.html" class="block px-6 py-3 border-b border-gray-200">Services</a>
+    <a href="tracking.html" class="block px-6 py-3 border-b border-gray-200">Tracking</a>
+    <a href="about.html" class="block px-6 py-3 border-b border-gray-200">About</a>
+    <a href="faq.html" class="block px-6 py-3 border-b border-gray-200">FAQ</a>
+    <a href="login.html" class="block px-6 py-3">Login</a>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="hero min-h-screen bg-cover bg-center relative flex items-center" style="background-image: url('images/hero-bg.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="container mx-auto px-6 relative z-10 text-white">
+      <h1 class="text-5xl font-bold mb-4">About <span class="text-primary">CareConnect Courier</span></h1>
+      <p class="text-xl opacity-90 max-w-2xl">Leading the way in global shipping and logistics solutions with innovation, reliability, and customer excellence.</p>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-6 text-darkRed">About CareConnect Courier</h2>
+      <p class="text-xl text-gray-600 mb-12">Leading the way in global shipping and logistics solutions.</p>
+
+      <div class="max-w-3xl mx-auto text-gray-700 mb-8">
+        <p class="mb-4">At CareConnect Courier, we specialize in providing fast, secure, and reliable shipping services worldwide. Established in 2010, we’ve expanded our global reach with the mission to deliver shipments on time, every time. Whether it's a small package or large cargo, we are your trusted logistics partner.</p>
+        <p>Our team of professionals ensures that each shipment is handled with the utmost care, using state-of-the-art technology for real-time tracking and customer support. Our partnerships across 150+ countries make us a global leader in shipping logistics, delivering goods across all transport modes—land, sea, and air.</p>
+      </div>
+
+      <div class="text-center">
+        <a href="contact.html" class="btn-primary py-3 px-6 rounded-lg text-white bg-primary hover:bg-transparent hover:text-primary border-2 border-primary transition">
+          Contact Us <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer bg-black text-white py-16">
+    <div class="container mx-auto text-center">
+      <a href="index.html" class="footer-logo text-2xl font-bold text-primary">
+        <i class="fas fa-shipping-fast"></i> CareConnect <strong>Courier</strong>
+      </a>
+      <p class="mt-4 text-gray-400">Connecting global markets through reliable, efficient, and secure logistics solutions since 2010.</p>
+      <div class="social-links mt-6">
+        <a href="#" class="text-white mr-4 hover:text-primary transition"><i class="fab fa-linkedin text-xl"></i></a>
+        <a href="#" class="text-white mr-4 hover:text-primary transition"><i class="fab fa-twitter text-xl"></i></a>
+        <a href="#" class="text-white mr-4 hover:text-primary transition"><i class="fab fa-facebook text-xl"></i></a>
+        <a href="#" class="text-white hover:text-primary transition"><i class="fab fa-instagram text-xl"></i></a>
+      </div>
+      <div class="footer-bottom mt-8 border-t border-gray-700 pt-4">
+        <p>© 2026 CareConnect Courier. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    }
+  </script>
+</body>
+
+</html>

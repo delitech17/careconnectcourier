@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services | CareConnect Courier</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#8b0000',
+            darkRed: '#660000',
+            black: '#000',
+            white: '#fff',
+            lightBg: '#f9f9f9',
+            gray: '#666',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-lightBg text-gray-800">
+
+  <!-- NAVBAR -->
+  <header class="bg-white sticky top-0 z-50 shadow-md">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-xl font-bold text-darkRed">
+        <i class="fas fa-truck-fast text-primary"></i> CareConnect <span class="text-primary">Courier</span>
+      </a>
+
+      <button id="menuBtn" class="md:hidden text-2xl">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="hidden md:flex space-x-6 font-medium">
+        <ul class="nav-links flex space-x-6">
+          <li><a href="index.html" class="hover:text-primary">Home</a></li>
+          <li><a href="services.html" class="hover:text-primary">Services</a></li>
+          <li><a href="tracking.html" class="hover:text-primary">Tracking</a></li>
+          <li><a href="about.html" class="hover:text-primary">About</a></li>
+          <li><a href="faq.html" class="hover:text-primary">FAQ</a></li>
+          <li><a href="login.html" class="hover:text-primary">Login</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden bg-white md:hidden">
+      <a href="index.html" class="block px-6 py-3 border-b border-gray-200">Home</a>
+      <a href="services.html" class="block px-6 py-3 border-b border-gray-200">Services</a>
+      <a href="tracking.html" class="block px-6 py-3 border-b border-gray-200">Tracking</a>
+      <a href="about.html" class="block px-6 py-3 border-b border-gray-200">About</a>
+      <a href="faq.html" class="block px-6 py-3 border-b border-gray-200">FAQ</a>
+      <a href="login.html" class="block px-6 py-3">Login</a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero min-h-screen bg-cover bg-center relative flex items-center" style="background-image: url('images/hero-bg.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="container mx-auto px-6 relative z-10 text-white">
+      <h1 class="text-5xl font-bold mb-4">Our Transport <span class="text-primary">Solutions</span></h1>
+      <p class="text-xl opacity-90 max-w-2xl">Comprehensive logistics services tailored to your shipping needs. Fast, secure, and reliable.</p>
+    </div>
+  </section>
+
+  <!-- MAIN SERVICES SECTION -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-4 text-darkRed">Our Transport Solutions</h2>
+      <h3 class="text-xl text-gray-600 mb-12">Comprehensive Logistics Services for Every Need</h3>
+
+      <div class="services-grid grid md:grid-cols-3 gap-8">
+        <div class="service-card bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl hover:border-primary border-2 border-transparent transition-all">
+          <div class="relative h-48 mb-4 rounded-lg overflow-hidden bg-gradient-to-br from-primary to-darkRed flex items-center justify-center">
+            <i class="fas fa-water text-white text-6xl opacity-20"></i>
+            <div class="absolute inset-0 bg-black opacity-30 flex items-center justify-center">
+              <i class="fas fa-ship text-white text-5xl"></i>
+            </div>
+          </div>
+          <h4 class="font-bold text-2xl text-primary mb-3">Sea Freight</h4>
+          <p class="text-gray-600 mb-4">Cost-effective ocean transportation with FCL, LCL, and Ro-Ro options. Global port coverage with customs clearance.</p>
+          <a href="#sea" class="service-link text-primary font-semibold hover:underline hover:text-darkRed transition">Learn More <i class="fas fa-arrow-right ml-1"></i></a>
+        </div>
+
+        <div class="service-card bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl hover:border-primary border-2 border-transparent transition-all">
+          <div class="relative h-48 mb-4 rounded-lg overflow-hidden bg-gradient-to-br from-primary to-darkRed flex items-center justify-center">
+            <i class="fas fa-road text-white text-6xl opacity-20"></i>
+            <div class="absolute inset-0 bg-black opacity-30 flex items-center justify-center">
+              <i class="fas fa-truck text-white text-5xl"></i>
+            </div>
+          </div>
+          <h4 class="font-bold text-2xl text-primary mb-3">Land Transport</h4>
+          <p class="text-gray-600 mb-4">Nationwide road and rail solutions with temperature-controlled and hazardous material handling.</p>
+          <a href="#land" class="service-link text-primary font-semibold hover:underline hover:text-darkRed transition">Learn More <i class="fas fa-arrow-right ml-1"></i></a>
+        </div>
+
+        <div class="service-card bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl hover:border-primary border-2 border-transparent transition-all">
+          <div class="relative h-48 mb-4 rounded-lg overflow-hidden bg-gradient-to-br from-primary to-darkRed flex items-center justify-center">
+            <i class="fas fa-cloud text-white text-6xl opacity-20"></i>
+            <div class="absolute inset-0 bg-black opacity-30 flex items-center justify-center">
+              <i class="fas fa-plane text-white text-5xl"></i>
+            </div>
+          </div>
+          <h4 class="font-bold text-2xl text-primary mb-3">Air Cargo</h4>
+          <p class="text-gray-600 mb-4">Express air freight for urgent shipments with same-day and next-flight-out options available.</p>
+          <a href="#air" class="service-link text-primary font-semibold hover:underline hover:text-darkRed transition">Learn More <i class="fas fa-arrow-right ml-1"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAILED SERVICE: SEA FREIGHT -->
+  <section id="sea" class="py-20 bg-gradient-to-r from-gray-50 to-white border-b-4 border-primary">
+    <div class="container mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h3 class="text-4xl font-bold text-darkRed mb-4">Sea Freight Solutions</h3>
+          <p class="text-lg text-gray-700 mb-6">Our sea freight services offer comprehensive global port coverage with options like FCL (Full Container Load), LCL (Less than Container Load), and Ro-Ro (Roll-on/Roll-off) for various types of cargo.</p>
+          <p class="text-gray-600 mb-6">We handle every aspect of shipping from port-to-port to door-to-door delivery, ensuring timely and cost-effective solutions for your cargo needs. With partnerships in over 100 ports worldwide, we guarantee reliable service.</p>
+          
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center text-gray-700"><i class="fas fa-check text-primary mr-3 text-xl"></i> FCL & LCL Options</li>
+            <li class="flex items-center text-gray-700"><i class="fas fa-check text-primary mr-3 text-xl"></i> Global Port Coverage</li>
+            <li class="flex items-center text-gray-700"><i class="fas fa-check text-primary mr-3 text-xl"></i> Customs Clearance</li>
+            <li class="flex items-center text-gray-700"><i class="fas fa-check text-primary mr-3 text-xl"></i> 24/7 Tracking</li>
+          </ul>
+
+          <a href="contact.html" class="bg-primary text-white py-3 px-8 rounded-lg hover:bg-darkRed transition font-semibold inline-block">
+            <i class="fas fa-quote-left mr-2"></i> Request a Quote
+          </a>
+        </div>
+        <div class="bg-gradient-to-br from-primary to-darkRed rounded-xl p-8 text-white shadow-lg">
+          <i class="fas fa-ship text-6xl mb-4 opacity-80"></i>
+          <h4 class="text-2xl font-bold mb-4">Why Choose Our Sea Freight?</h4>
+          <ul class="space-y-3 text-sm">
+            <li><i class="fas fa-check-circle mr-2"></i> Competitive rates</li>
+            <li><i class="fas fa-check-circle mr-2"></i> Reliable schedules</li>
+            <li><i class="fas fa-check-circle mr-2"></i> Cargo insurance</li>
+            <li><i class="fas fa-check-circle mr-2"></i> Professional handling</li>
+            <li><i class="fas fa-check-circle mr-2"></i> Full transparency</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAILED SERVICE: LAND TRANSPORT -->
+  <section id="land" class="py-20 bg-white">
+    <div class="container mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="order-2 md:order-1 bg-gradient-to-br from-primary to-darkRed rounded-xl p-8 text-white shadow-lg">
+          <i class="fas fa-truck text-6xl mb-4 opacity-80"></i>
+          <h4 class="text-2xl font-bold mb-4">Why Choose Our Land Transport?</h4>
+          <ul class="space-y-3 text-sm">
+            <li><i class="fas fa-check-circle mr-2"></i> Fleet of modern vehicles</li>
+            <li><i class="fas fa-check-circle mr-2"></i> Temperature control</li>
+            <li><i class="fas fa-check-circle mr-2"></i> Hazmat expertise</li>
+            <li><i class="fas fa-check-circle mr-2"></i> Quick turnaround</li>
+            <li><i class="fas fa-check-circle mr-2"></i> Route optimization</li>
+          </ul>
+        </div>
+        <div class="order-1 md:order-2">
+          <h3 class="text-4xl font-bold text-darkRed mb-4">Land Transport Services</h3>
+          <p class="text-lg text-gray-700 mb-6">We offer nationwide transportation solutions for goods of all sizes. Our fleet is equipped with temperature-controlled vehicles, and we specialize in handling hazardous materials safely.</p>
+          <p class="text-gray-600 mb-6">Your shipments are delivered on time and in compliance with all regulations. Whether it's local delivery or cross-country transport, we handle it with professionalism and care.</p>
+          
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center text-gray-700"><i class="fas fa-check text-primary mr-3 text-xl"></i> Nationwide Coverage</li>
+            <li class="flex items-center text-gray-700"><i class="fas fa-check text-primary mr-3 text-xl"></i> Temperature Controlled</li>
+            <li class="flex items-center text-gray-700"><i class="fas fa-check text-primary mr-3 text-xl"></i> Hazmat Handling</li>
+            <li class="flex items-center text-gray-700"><i class="fas fa-check text-primary mr-3 text-xl"></i> Real-time GPS Tracking</li>
+          </ul>
+
+          <a href="contact.html" class="bg-primary text-white py-3 px-8 rounded-lg hover:bg-darkRed transition font-semibold inline-block">
+            <i class="fas fa-quote-left mr-2"></i> Request a Quote
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAILED SERVICE: AIR FREIGHT -->
+  <section id="air" class="py-20 bg-gradient-to-r from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h3 class="text-4xl font-bold text-darkRed mb-4">Air Freight Services</h3>
+          <p class="text-lg text-gray-700 mb-6">For time-sensitive shipments, our air freight service offers express options for both same-day and next-flight-out delivery. Our global partnerships allow us to offer seamless air cargo solutions.</p>
+          <p class="text-gray-600 mb-6">Your goods arrive quickly and safely with our professional handling and comprehensive insurance coverage. We specialize in high-value cargo and perishable goods requiring urgent transport.</p>
+          
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center text-gray-700"><i class="fas fa-check text-primary mr-3 text-xl"></i> Same-day Delivery</li>
+            <li class="flex items-center text-gray-700"><i class="fas fa-check text-primary mr-3 text-xl"></i> Next-Flight-Out</li>
+            <li class="flex items-center text-gray-700"><i class="fas fa-check text-primary mr-3 text-xl"></i> Global Network</li>
+            <li class="flex items-center text-gray-700"><i class="fas fa-check text-primary mr-3 text-xl"></i> Full Insurance</li>
+          </ul>
+
+          <a href="contact.html" class="bg-primary text-white py-3 px-8 rounded-lg hover:bg-darkRed transition font-semibold inline-block">
+            <i class="fas fa-phone mr-2"></i> Contact Us Today
+          </a>
+        </div>
+        <div class="bg-gradient-to-br from-primary to-darkRed rounded-xl p-8 text-white shadow-lg">
+          <i class="fas fa-plane text-6xl mb-4 opacity-80"></i>
+          <h4 class="text-2xl font-bold mb-4">Why Choose Our Air Freight?</h4>
+          <ul class="space-y-3 text-sm">
+            <li><i class="fas fa-check-circle mr-2"></i> Fastest delivery times</li>
+            <li><i class="fas fa-check-circle mr-2"></i> Best for urgency</li>
+            <li><i class="fas fa-check-circle mr-2"></i> High-value cargo expertise</li>
+            <li><i class="fas fa-check-circle mr-2"></i> Perishable goods handling</li>
+            <li><i class="fas fa-check-circle mr-2"></i> Premium tracking</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="py-20 bg-black text-white text-center">
+    <div class="container mx-auto">
+      <h2 class="text-4xl font-bold mb-4">Ready to Ship?</h2>
+      <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">Get a free quote for your shipment today. Our team will help you choose the best solution for your logistics needs.</p>
+      <a href="contact.html" class="bg-primary text-white py-4 px-10 rounded-lg hover:bg-darkRed transition font-bold text-lg inline-block">
+        <i class="fas fa-arrow-right mr-2"></i> Request a Quote Now
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer bg-black text-white py-16">
+    <div class="container mx-auto text-center">
+      <a href="index.html" class="footer-logo text-2xl font-bold text-primary">
+        <i class="fas fa-shipping-fast"></i> CareConnect <strong>Courier</strong>
+      </a>
+      <p class="mt-4 text-gray-400">Connecting global markets through reliable, efficient, and secure logistics solutions since 2010.</p>
+      <div class="social-links mt-6">
+        <a href="#" class="text-white mr-4 hover:text-primary transition"><i class="fab fa-linkedin text-xl"></i></a>
+        <a href="#" class="text-white mr-4 hover:text-primary transition"><i class="fab fa-twitter text-xl"></i></a>
+        <a href="#" class="text-white mr-4 hover:text-primary transition"><i class="fab fa-facebook text-xl"></i></a>
+        <a href="#" class="text-white hover:text-primary transition"><i class="fab fa-instagram text-xl"></i></a>
+      </div>
+      <div class="footer-bottom mt-8 border-t border-gray-700 pt-4">
+        <p>© 2026 CareConnect Courier. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>
+      </a>
+      <p class="mt-4">Connecting global markets through reliable, efficient, and secure logistics solutions since 2010.</p>
+      <div class="social-links mt-6">
+        <a href="#" class="text-white mr-4"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="text-white mr-4"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="text-white mr-4"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="footer-bottom mt-8 border-t border-gray-700 pt-4">
+        <p>© 2026 CareConnect Courier. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

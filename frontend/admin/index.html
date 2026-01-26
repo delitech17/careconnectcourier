@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | CareConnect Courier</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#8b0000',
+            darkRed: '#660000',
+            lightBg: '#f9f9f9',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-lightBg text-gray-800">
+
+  <!-- NAVBAR -->
+  <header class="bg-white sticky top-0 z-50 shadow-md">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="../index.html" class="text-xl font-bold text-darkRed">
+        <i class="fas fa-truck-fast text-primary"></i> CareConnect <span class="text-primary">Courier</span>
+      </a>
+      <nav class="hidden md:flex space-x-6 font-medium">
+        <ul class="flex space-x-6">
+          <li><a href="../index.html" class="hover:text-primary">Home</a></li>
+          <li><a href="index.html" class="hover:text-primary font-semibold text-primary">Admin</a></li>
+          <li><a href="../tracking.html" class="hover:text-primary">Tracking</a></li>
+          <li><button id="logoutBtn" class="bg-primary text-white px-4 py-2 rounded hover:bg-darkRed transition">Logout</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- AUTH SECTION -->
+  <div id="authSection" class="py-12">
+    <div class="container mx-auto">
+      <div class="bg-yellow-100 border border-yellow-400 rounded p-6 max-w-md">
+        <p class="text-sm mb-4"><strong>🔐 Admin Access Required</strong></p>
+        <p class="text-sm text-gray-700 mb-4">Enter your admin token to access the dashboard.</p>
+        <div class="space-y-3">
+          <input type="password" id="adminToken" placeholder="Enter admin token" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none" />
+          <button id="loginBtn" class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-darkRed transition">
+            <i class="fas fa-sign-in-alt mr-2"></i> Access Admin Panel
+          </button>
+        </div>
+        <p id="authStatus" class="text-sm mt-3 text-center"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN DASHBOARD (hidden until logged in) -->
+  <div id="adminPanel" class="hidden">
+    <!-- SIDEBAR NAVIGATION -->
+    <div class="flex">
+      <!-- Sidebar -->
+      <aside class="w-64 bg-darkRed text-white min-h-screen sticky top-16">
+        <nav class="p-6 space-y-2">
+          <a href="index.html" class="block px-4 py-3 rounded-lg bg-primary hover:bg-darkRed transition">
+            <i class="fas fa-home mr-3"></i> Dashboard
+          </a>
+          <a href="shipments.html" class="block px-4 py-3 rounded-lg hover:bg-primary transition">
+            <i class="fas fa-cube mr-3"></i> Create Shipment
+          </a>
+          <a href="shipments-list.html" class="block px-4 py-3 rounded-lg hover:bg-primary transition">
+            <i class="fas fa-list mr-3"></i> All Shipments
+          </a>
+          <a href="movements.html" class="block px-4 py-3 rounded-lg hover:bg-primary transition">
+            <i class="fas fa-map-pin mr-3"></i> Add Movement
+          </a>
+          <a href="chats.html" class="block px-4 py-3 rounded-lg hover:bg-primary transition">
+            <i class="fas fa-comments mr-3"></i> Live Chat
+          </a>
+          <a href="messages.html" class="block px-4 py-3 rounded-lg hover:bg-primary transition">
+            <i class="fas fa-envelope mr-3"></i> Contact Messages
+          </a>
+          <hr class="my-4 border-primary">
+          <button id="sidebarLogoutBtn" class="w-full text-left px-4 py-3 rounded-lg hover:bg-primary transition">
+            <i class="fas fa-sign-out-alt mr-3"></i> Logout
+          </button>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 p-8">
+        <div class="max-w-6xl">
+          <h1 class="text-4xl font-bold mb-2">Welcome to Admin Dashboard</h1>
+          <p class="text-gray-600 mb-8">Manage shipments, track movements, and communicate with customers</p>
+
+          <!-- Quick Stats -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-primary">
+              <p class="text-gray-600 text-sm font-semibold uppercase">Total Shipments</p>
+              <p id="statsShipments" class="text-4xl font-bold text-primary mt-2">0</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
+              <p class="text-gray-600 text-sm font-semibold uppercase">Total Movements</p>
+              <p id="statsMovements" class="text-4xl font-bold text-blue-500 mt-2">0</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-yellow-500">
+              <p class="text-gray-600 text-sm font-semibold uppercase">Chat Messages</p>
+              <p id="statsChats" class="text-4xl font-bold text-yellow-500 mt-2">0</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+              <p class="text-gray-600 text-sm font-semibold uppercase">Contact Forms</p>
+              <p id="statsMessages" class="text-4xl font-bold text-green-500 mt-2">0</p>
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Recent Shipments -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+              <h2 class="text-xl font-bold mb-4">
+                <i class="fas fa-cube text-primary mr-2"></i> Recent Shipments
+              </h2>
+              <div id="recentShipments" class="space-y-2 max-h-64 overflow-y-auto">
+                <p class="text-gray-500 text-sm">Loading...</p>
+              </div>
+            </div>
+
+            <!-- Pending Chats -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+              <h2 class="text-xl font-bold mb-4">
+                <i class="fas fa-comments text-yellow-500 mr-2"></i> Pending Chat Replies
+              </h2>
+              <div id="pendingChats" class="space-y-2 max-h-64 overflow-y-auto">
+                <p class="text-gray-500 text-sm">Loading...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="mt-8 bg-gradient-to-r from-primary to-darkRed rounded-lg shadow-md p-6 text-white">
+            <h2 class="text-xl font-bold mb-4">Quick Actions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <a href="shipments.html" class="bg-white bg-opacity-20 hover:bg-opacity-30 p-4 rounded-lg transition">
+                <i class="fas fa-plus-circle mr-2"></i> Create New Shipment
+              </a>
+              <a href="movements.html" class="bg-white bg-opacity-20 hover:bg-opacity-30 p-4 rounded-lg transition">
+                <i class="fas fa-plus-circle mr-2"></i> Add Movement Update
+              </a>
+              <a href="chats.html" class="bg-white bg-opacity-20 hover:bg-opacity-30 p-4 rounded-lg transition">
+                <i class="fas fa-reply-all mr-2"></i> Reply to Chats
+              </a>
+              <a href="messages.html" class="bg-white bg-opacity-20 hover:bg-opacity-30 p-4 rounded-lg transition">
+                <i class="fas fa-inbox mr-2"></i> View Contact Messages
+              </a>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/admin-auth.js"></script>
+  <script src="js/admin-dashboard.js"></script>
+</body>
+
+</html>

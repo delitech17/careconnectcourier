@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | CareConnect Courier</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#8b0000',
+            darkRed: '#660000',
+            black: '#000',
+            white: '#fff',
+            lightBg: '#f9f9f9',
+            gray: '#666',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-lightBg text-gray-800">
+
+  <!-- NAVBAR -->
+  <header class="bg-white sticky top-0 z-50 shadow-md">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-xl font-bold text-darkRed">
+        <i class="fas fa-truck-fast text-primary"></i> CareConnect <span class="text-primary">Courier</span>
+      </a>
+
+      <button id="menuBtn" class="md:hidden text-2xl">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="hidden md:flex space-x-6 font-medium">
+        <ul class="nav-links flex space-x-6">
+          <li><a href="index.html" class="hover:text-primary">Home</a></li>
+          <li><a href="services.html" class="hover:text-primary">Services</a></li>
+          <li><a href="tracking.html" class="hover:text-primary">Tracking</a></li>
+          <li><a href="about.html" class="hover:text-primary">About</a></li>
+          <li><a href="faq.html" class="hover:text-primary">FAQ</a></li>
+          <li><a href="login.html" class="hover:text-primary">Login</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden bg-white md:hidden">
+      <a href="index.html" class="block px-6 py-3 border-b border-gray-200">Home</a>
+      <a href="services.html" class="block px-6 py-3 border-b border-gray-200">Services</a>
+      <a href="tracking.html" class="block px-6 py-3 border-b border-gray-200">Tracking</a>
+      <a href="about.html" class="block px-6 py-3 border-b border-gray-200">About</a>
+      <a href="faq.html" class="block px-6 py-3 border-b border-gray-200">FAQ</a>
+      <a href="login.html" class="block px-6 py-3">Login</a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero min-h-screen bg-cover bg-center relative flex items-center" style="background-image: url('images/hero-bg.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="container mx-auto px-6 relative z-10 text-white">
+      <h1 class="text-5xl font-bold mb-4">Contact <span class="text-primary">CareConnect Courier</span></h1>
+      <p class="text-xl opacity-90 max-w-2xl">Get in touch with our team. We're here to help with your shipping needs.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 mb-16">
+        <!-- Contact Info -->
+        <div>
+          <h2 class="text-4xl font-bold text-darkRed mb-8">Get in Touch</h2>
+          <p class="text-gray-600 mb-8">Have questions? Our dedicated support team is ready to help. Contact us through any of the channels below.</p>
+
+          <div class="space-y-6">
+            <div class="flex items-start">
+              <i class="fas fa-phone text-primary text-2xl mr-4 mt-1"></i>
+              <div>
+                <h4 class="font-bold text-darkRed mb-1">Phone</h4>
+                <p class="text-gray-600">+1 (555) 123-4567</p>
+                <p class="text-gray-600">Available 24/7</p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <i class="fas fa-envelope text-primary text-2xl mr-4 mt-1"></i>
+              <div>
+                <h4 class="font-bold text-darkRed mb-1">Email</h4>
+                <p class="text-gray-600">support@careconnectcourier.com</p>
+                <p class="text-gray-600">Response within 24 hours</p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <i class="fas fa-map-marker-alt text-primary text-2xl mr-4 mt-1"></i>
+              <div>
+                <h4 class="font-bold text-darkRed mb-1">Office</h4>
+                <p class="text-gray-600">123 Shipping Lane</p>
+                <p class="text-gray-600">Port City, PC 12345</p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <i class="fas fa-clock text-primary text-2xl mr-4 mt-1"></i>
+              <div>
+                <h4 class="font-bold text-darkRed mb-1">Business Hours</h4>
+                <p class="text-gray-600">Monday - Friday: 9am - 6pm</p>
+                <p class="text-gray-600">Saturday - Sunday: 10am - 4pm</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-gradient-to-br from-gray-50 to-white p-8 rounded-xl shadow-lg border border-primary">
+          <h3 class="text-2xl font-bold text-darkRed mb-6">Send us a Message</h3>
+          <form id="contactForm" class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1">Your Name</label>
+              <input name="name" required placeholder="John Doe" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none transition" />
+            </div>
+            
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1">Email Address</label>
+              <input name="email" type="email" required placeholder="john@example.com" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none transition" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1">Subject</label>
+              <input name="subject" placeholder="How can we help?" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none transition" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1">Message</label>
+              <textarea name="message" required placeholder="Your message here..." rows="5" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none transition resize-none"></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-gradient-to-r from-primary to-darkRed text-white py-3 rounded-lg font-bold hover:shadow-lg transition">
+              <i class="fas fa-paper-plane mr-2"></i> Send Message
+            </button>
+
+            <span id="contactStatus" class="block text-center text-sm font-semibold"></span>
+          </form>
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="bg-gradient-to-r from-primary to-darkRed text-white p-12 rounded-xl text-center">
+        <h2 class="text-3xl font-bold mb-4">Need a Quick Quote?</h2>
+        <p class="mb-6 text-lg opacity-90">Get pricing for your shipment instantly</p>
+        <a href="index.html#quote" class="bg-white text-primary py-3 px-8 rounded-lg font-bold hover:bg-gray-100 transition inline-block">
+          Request a Quote <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer bg-black text-white py-16">
+    <div class="container mx-auto text-center">
+      <a href="index.html" class="footer-logo text-2xl font-bold text-primary">
+        <i class="fas fa-shipping-fast"></i> CareConnect <strong>Courier</strong>
+      </a>
+      <p class="mt-4 text-gray-400">Connecting global markets through reliable, efficient, and secure logistics solutions since 2010.</p>
+      <div class="social-links mt-6">
+        <a href="#" class="text-white mr-4 hover:text-primary transition"><i class="fab fa-linkedin text-xl"></i></a>
+        <a href="#" class="text-white mr-4 hover:text-primary transition"><i class="fab fa-twitter text-xl"></i></a>
+        <a href="#" class="text-white mr-4 hover:text-primary transition"><i class="fab fa-facebook text-xl"></i></a>
+        <a href="#" class="text-white hover:text-primary transition"><i class="fab fa-instagram text-xl"></i></a>
+      </div>
+      <div class="footer-bottom mt-8 border-t border-gray-700 pt-4">
+        <p>© 2026 CareConnect Courier. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    }
+  </script>
+</body>
+
+</html>
+    <div class="container mx-auto text-center">
+      <a href="index.html" class="footer-logo text-2xl font-bold text-darkRed">
+        <i class="fas fa-shipping-fast"></i> CareConnect <strong>Courier</strong>
+      </a>
+      <p class="mt-4 text-gray-400">Connecting global markets through reliable, efficient, and secure logistics solutions since 2010.</p>
+      <div class="social-links mt-6">
+        <a href="#" class="text-white mr-4"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="text-white mr-4"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="text-white mr-4"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="footer-bottom mt-8 border-t border-gray-700 pt-4">
+        <p>© 2026 CareConnect Courier. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

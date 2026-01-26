@@ -1,0 +1,30 @@
+[
+  {
+    "id": "air",
+    "title": "Air Freight",
+    "summary": "Fast global air freight with priority handling and customs clearance.",
+    "details": "Same-day and next-flight-out options for urgent consignments. Door-to-door and airport-to-airport services with cargo insurance and real-time tracking.",
+    "price_preview": "From $3.49 / kg (subject to routing and carrier surcharges)"
+  },
+  {
+    "id": "land",
+    "title": "Land Freight",
+    "summary": "Reliable road and rail transport for regional and cross-border shipments.",
+    "details": "Temperature-controlled, ADR-compliant hazmat handling, and full-truckload (FTL) / less-than-truckload (LTL) options. GPS-enabled fleet and hub consolidation.",
+    "price_preview": "From $0.85 / km for LTL (varies by distance and vehicle type)"
+  },
+  {
+    "id": "express",
+    "title": "Express Delivery",
+    "summary": "Same-day and next-day courier solutions for time-sensitive parcels.",
+    "details": "Integrated last-mile network with proof-of-delivery (POD), automated SMS/email notifications, and returns management.",
+    "price_preview": "Flat-rate pricing available for metro deliveries; volume discounts for business accounts."
+  },
+  {
+    "id": "corporate",
+    "title": "Corporate & Bulk Shipping",
+    "summary": "Tailored logistics solutions for businesses and large-volume shippers.",
+    "details": "Account management, consolidated invoicing, SLA-backed service levels, and customized warehousing and fulfillment support.",
+    "price_preview": "Contact us for volume-based pricing and contract terms."
+  }
+]

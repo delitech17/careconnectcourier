@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Shipment | Admin | CareConnect Courier</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#8b0000',
+            darkRed: '#660000',
+            lightBg: '#f9f9f9',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-lightBg text-gray-800">
+
+  <!-- NAVBAR -->
+  <header class="bg-white sticky top-0 z-50 shadow-md">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="../index.html" class="text-xl font-bold text-darkRed">
+        <i class="fas fa-truck-fast text-primary"></i> CareConnect <span class="text-primary">Courier</span>
+      </a>
+      <nav class="hidden md:flex space-x-6 font-medium">
+        <a href="../index.html" class="hover:text-primary">Home</a>
+        <a href="index.html" class="hover:text-primary font-semibold text-primary">Admin</a>
+        <a href="../tracking.html" class="hover:text-primary">Tracking</a>
+        <button id="logoutBtn" class="bg-primary text-white px-4 py-2 rounded hover:bg-darkRed transition">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="flex min-h-screen" style="margin-top: -60px; padding-top: 60px;">
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-darkRed text-white sticky top-16 h-screen overflow-y-auto">
+      <nav class="p-6 space-y-2">
+        <a href="index.html" class="block px-4 py-3 rounded-lg hover:bg-primary transition">
+          <i class="fas fa-home mr-3"></i> Dashboard
+        </a>
+        <a href="shipments.html" class="block px-4 py-3 rounded-lg bg-primary hover:bg-darkRed transition">
+          <i class="fas fa-cube mr-3"></i> Create Shipment
+        </a>
+        <a href="shipments-list.html" class="block px-4 py-3 rounded-lg hover:bg-primary transition">
+          <i class="fas fa-list mr-3"></i> All Shipments
+        </a>
+        <a href="movements.html" class="block px-4 py-3 rounded-lg hover:bg-primary transition">
+          <i class="fas fa-map-pin mr-3"></i> Add Movement
+        </a>
+        <a href="chats.html" class="block px-4 py-3 rounded-lg hover:bg-primary transition">
+          <i class="fas fa-comments mr-3"></i> Live Chat
+        </a>
+        <a href="messages.html" class="block px-4 py-3 rounded-lg hover:bg-primary transition">
+          <i class="fas fa-envelope mr-3"></i> Contact Messages
+        </a>
+        <hr class="my-4 border-primary">
+        <button id="sidebarLogoutBtn" class="w-full text-left px-4 py-3 rounded-lg hover:bg-primary transition">
+          <i class="fas fa-sign-out-alt mr-3"></i> Logout
+        </button>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 p-8">
+      <div class="max-w-4xl">
+        <h1 class="text-4xl font-bold mb-2">Create Shipment</h1>
+        <p class="text-gray-600 mb-8">Fill in the shipment details below to create a new tracking record</p>
+
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <form id="createShipmentForm" class="space-y-6">
+
+            <!-- Personal Information -->
+            <div class="border-b pb-6">
+              <h2 class="text-xl font-semibold mb-4">
+                <i class="fas fa-user text-primary mr-2"></i> Recipient Information
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Owner Name *</label>
+                  <input type="text" name="owner_name" required placeholder="John Doe" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none" />
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Email Address *</label>
+                  <input type="email" name="owner_email" placeholder="john@example.com" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Company Information -->
+            <div class="border-b pb-6">
+              <h2 class="text-xl font-semibold mb-4">
+                <i class="fas fa-building text-primary mr-2"></i> Company Information
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Company Name (Optional)</label>
+                  <input type="text" name="company" placeholder="TechCorp Ltd" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none" />
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Description</label>
+                  <input type="text" name="description" placeholder="Electronics shipment" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Shipping Details -->
+            <div class="border-b pb-6">
+              <h2 class="text-xl font-semibold mb-4">
+                <i class="fas fa-map text-primary mr-2"></i> Shipping Details
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Origin City *</label>
+                  <input type="text" name="origin" required placeholder="Lagos, Nigeria" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none" />
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Destination City *</label>
+                  <input type="text" name="destination" required placeholder="Accra, Ghana" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Logistics -->
+            <div class="border-b pb-6">
+              <h2 class="text-xl font-semibold mb-4">
+                <i class="fas fa-dolly text-primary mr-2"></i> Logistics Information
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Weight (kg)</label>
+                  <input type="text" name="weight" placeholder="25" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none" />
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Service Type</label>
+                  <select name="service" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none">
+                    <option value="">Select Service</option>
+                    <option value="air">Air Freight</option>
+                    <option value="land">Land Freight</option>
+                    <option value="sea">Sea Freight</option>
+                    <option value="express">Express Delivery</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Estimated Delivery</label>
+                  <input type="date" name="eta" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Coordinates (Optional) -->
+            <div class="pb-6 bg-gray-50 p-4 rounded-lg">
+              <h2 class="text-lg font-semibold mb-4">
+                <i class="fas fa-map-marker-alt text-primary mr-2"></i> Coordinates (Optional - for mapping)
+              </h2>
+              <p class="text-sm text-gray-600 mb-4">Add GPS coordinates for precise location tracking</p>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Origin Latitude</label>
+                  <input type="number" name="origin_lat" step="0.0001" placeholder="6.5244" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none" />
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Origin Longitude</label>
+                  <input type="number" name="origin_lng" step="0.0001" placeholder="3.3792" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none" />
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Destination Latitude</label>
+                  <input type="number" name="dest_lat" step="0.0001" placeholder="5.6037" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none" />
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Destination Longitude</label>
+                  <input type="number" name="dest_lng" step="0.0001" placeholder="-0.1870" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="flex gap-4">
+              <button type="submit" class="flex-1 bg-primary text-white py-4 rounded-lg font-bold hover:bg-darkRed transition flex items-center justify-center gap-2">
+                <i class="fas fa-check-circle"></i> Create Shipment
+              </button>
+              <a href="index.html" class="flex-1 bg-gray-300 text-gray-800 py-4 rounded-lg font-bold hover:bg-gray-400 transition text-center">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+              </a>
+            </div>
+
+            <!-- Status Message -->
+            <div id="shipmentStatus" class="hidden p-4 rounded-lg text-center font-semibold"></div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/admin-auth.js"></script>
+  <script src="js/admin-shipments.js"></script>
+</body>
+
+</html>

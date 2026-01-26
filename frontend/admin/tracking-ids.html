@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tracking IDs | Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen">
+  <header class="bg-white shadow p-4">
+    <div class="container mx-auto flex items-center justify-between">
+      <h1 class="text-xl font-bold">All Tracking IDs</h1>
+      <div>
+        <a href="index.html" class="text-sm text-primary hover:underline mr-4">Admin Home</a>
+        <button id="refreshBtn" class="bg-primary text-white px-3 py-1 rounded">Refresh</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto p-6">
+    <div class="bg-white rounded shadow p-4">
+      <p class="text-sm text-gray-600 mb-3">This list shows every tracking code created (updates automatically).</p>
+      <div class="flex items-center justify-between mb-3">
+        <div class="text-sm text-gray-700">Total: <span id="totalCount">0</span></div>
+        <div id="statusMsg" class="text-sm text-gray-500"></div>
+      </div>
+
+      <div id="listContainer" class="max-h-72 overflow-auto border rounded p-2">
+        <div class="text-center text-gray-500 py-8" id="loading"> <i class="fas fa-spinner fa-spin mr-2"></i> Loading...</div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
+</body>
+</html>

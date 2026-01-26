@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Your Shipment | CareConnect Courier</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#8b0000',
+            darkRed: '#660000',
+            black: '#000',
+            white: '#fff',
+            lightBg: '#f9f9f9',
+            gray: '#666',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-lightBg text-gray-800">
+
+  <!-- NAVBAR -->
+  <header class="bg-white sticky top-0 z-50 shadow-md">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-xl font-bold text-darkRed">
+        <i class="fas fa-truck-fast text-primary"></i> CareConnect <span class="text-primary">Courier</span>
+      </a>
+
+      <button id="menuBtn" class="md:hidden text-2xl">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="hidden md:flex space-x-6 font-medium">
+        <ul class="nav-links flex space-x-6">
+          <li><a href="index.html" class="hover:text-darkRed">Home</a></li>
+          <li><a href="services.html" class="hover:text-darkRed">Services</a></li>
+          <li><a href="tracking.html" class="hover:text-darkRed">Tracking</a></li>
+          <li><a href="about.html" class="hover:text-darkRed">About</a></li>
+          <li><a href="faq.html" class="hover:text-darkRed">FAQ</a></li>
+          <li><a href="login.html" class="hover:text-darkRed">Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- TRACKING SECTION -->
+  <section class="py-20">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-4 text-darkRed">Track Your Shipment</h2>
+      <h3 class="text-xl text-gray-600 mb-12">Enter your tracking number to get real-time updates</h3>
+
+      <div class="flex justify-center gap-6">
+        <input type="text" id="trackingNumber" placeholder="e.g., CC789456123" class="tracking-input p-3 border-2 border-gray-300 rounded-l-lg focus:outline-none">
+        <button id="trackButton" class="btn-track bg-primary text-white py-3 px-6 rounded-r-lg">
+          Track Now <i class="fas fa-arrow-right" id="trackArrow"></i>
+        </button>
+      </div>
+
+      <div id="trackResult" class="mt-8 container mx-auto text-left hidden">
+        <div id="notFound" class="text-red-600 hidden">Tracking code not found.</div>
+        <div id="details" class="bg-white rounded-lg p-6 shadow-md hidden">
+          <h4 id="code" class="text-lg font-bold mb-2"></h4>
+          <p id="owner" class="text-sm text-gray-700"></p>
+          <p id="company" class="text-sm text-gray-700"></p>
+          <p id="desc" class="text-sm text-gray-700"></p>
+          <p id="route" class="text-sm text-gray-700"></p>
+          <p id="eta" class="text-sm text-gray-700"></p>
+          <p id="weight" class="text-sm text-gray-700"></p>
+
+          <!-- Barcode Display -->
+          <div id="barcodeContainer" class="mt-6 p-4 bg-gray-50 rounded-lg border-2 border-gray-200">
+            <h5 class="font-semibold mb-3">Shipment Barcode</h5>
+            <div class="flex justify-center py-4">
+              <svg id="shipmentBarcode"></svg>
+            </div>
+            <p id="barcodeInfo" class="text-xs text-gray-600 text-center mt-2"></p>
+          </div>
+
+          <!-- Static Map Image -->
+          <div id="mapContainer" class="mt-6 hidden">
+            <h5 class="font-semibold mb-2">Destination Location</h5>
+            <img id="staticMapImage" src="" alt="Shipment destination map" class="w-full rounded-lg shadow-md" style="max-height: 400px; object-fit: cover;">
+            <p id="mapInfo" class="text-xs text-gray-600 mt-2"></p>
+          </div>
+
+          <h5 class="mt-6 font-semibold">Movement History</h5>
+          <ul id="movements" class="mt-2 list-disc list-inside text-sm text-gray-700"></ul>
+        </div>
+      </div>
+
+      <p class="mt-4 text-gray-600 text-sm">
+        <i class="fas fa-info-circle"></i> Need help? <a href="#">Find your tracking number</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer bg-black text-white py-16">
+    <div class="container mx-auto text-center">
+      <a href="index.html" class="footer-logo text-2xl font-bold text-darkRed">
+        <i class="fas fa-shipping-fast"></i> CareConnect <strong>Courier</strong>
+      </a>
+      <p class="mt-4 text-gray-400">Connecting global markets through reliable, efficient, and secure logistics solutions since 2010.</p>
+      <div class="social-links mt-6">
+        <a href="#" class="text-white mr-4"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="text-white mr-4"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="text-white mr-4"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="footer-bottom mt-8 border-t border-gray-700 pt-4">
+        <p>© 2026 CareConnect Courier. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Blinking effect for the arrow button
+    const trackArrow = document.getElementById('trackArrow');
+    setInterval(() => {
+      trackArrow.classList.toggle('opacity-0');
+    }, 1000); // Adjust blink speed by changing the interval
+  </script>
+  <script>
+    // Tracking fetch logic
+    const trackButton = document.getElementById('trackButton');
+    const trackingNumber = document.getElementById('trackingNumber');
+    const trackResult = document.getElementById('trackResult');
+    const details = document.getElementById('details');
+    const notFound = document.getElementById('notFound');
+
+    trackButton.addEventListener('click', async () => {
+      const code = trackingNumber.value.trim();
+      if (!code) return;
+      // adjust host/port if you run the backend elsewhere
+      const url = `http://localhost:5000/api/track/${encodeURIComponent(code)}`;
+      trackResult.classList.remove('hidden');
+      details.classList.add('hidden');
+      notFound.classList.add('hidden');
+      try {
+        const res = await fetch(url);
+        if (res.status === 404) {
+          notFound.classList.remove('hidden');
+          return;
+        }
+        const data = await res.json();
+        document.getElementById('code').textContent = `Tracking: ${data.tracking_code}`;
+        document.getElementById('owner').textContent = `Owner: ${data.owner_name || ''}`;
+        document.getElementById('desc').textContent = `Description: ${data.description || ''}`;
+        document.getElementById('route').textContent = `Route: ${data.origin || ''} → ${data.destination || ''}`;
+        document.getElementById('eta').textContent = `ETA: ${data.eta || 'N/A'}`;
+        const mapLink = document.getElementById('mapLink');
+        if (data.map_url) {
+          mapLink.href = data.map_url;
+          mapLink.classList.remove('hidden');
+        } else {
+          mapLink.classList.add('hidden');
+        }
+
+        const movements = document.getElementById('movements');
+        movements.innerHTML = '';
+        (data.movements || []).forEach(m => {
+          const li = document.createElement('li');
+          li.textContent = `${m.timestamp || ''} — ${m.location || ''} — ${m.status || ''} ${m.note ? `(${m.note})` : ''}`;
+          movements.appendChild(li);
+        });
+
+        details.classList.remove('hidden');
+      } catch (err) {
+        notFound.textContent = 'Error contacting tracking service.';
+        notFound.classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+
+</html>

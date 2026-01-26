@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Emmanuel A.",
+    "company": "BrightTech Ltd",
+    "text": "CareConnect handled our urgent international shipment flawlessly. Real-time updates and great support. Highly recommend.",
+    "rating": 5
+  },
+  {
+    "id": 2,
+    "name": "Lilian M.",
+    "company": "FreshFoods Co.",
+    "text": "Dependable land transport and excellent temperature control for our perishables.",
+    "rating": 5
+  },
+  {
+    "id": 3,
+    "name": "Ola S.",
+    "company": "RetailOne",
+    "text": "Competitive pricing and great corporate account management — our go-to logistics partner.",
+    "rating": 4
+  }
+]

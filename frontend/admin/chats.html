@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Chat | Admin | CareConnect Courier</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#8b0000',
+            darkRed: '#660000',
+            lightBg: '#f9f9f9',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-lightBg text-gray-800">
+
+  <!-- NAVBAR -->
+  <header class="bg-white sticky top-0 z-50 shadow-md">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="../index.html" class="text-xl font-bold text-darkRed">
+        <i class="fas fa-truck-fast text-primary"></i> CareConnect <span class="text-primary">Courier</span>
+      </a>
+      <nav class="hidden md:flex space-x-6 font-medium">
+        <a href="../index.html" class="hover:text-primary">Home</a>
+        <a href="index.html" class="hover:text-primary font-semibold text-primary">Admin</a>
+        <a href="../tracking.html" class="hover:text-primary">Tracking</a>
+        <button id="logoutBtn" class="bg-primary text-white px-4 py-2 rounded hover:bg-darkRed transition">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="flex min-h-screen" style="margin-top: -60px; padding-top: 60px;">
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-darkRed text-white sticky top-16 h-screen overflow-y-auto">
+      <nav class="p-6 space-y-2">
+        <a href="index.html" class="block px-4 py-3 rounded-lg hover:bg-primary transition">
+          <i class="fas fa-home mr-3"></i> Dashboard
+        </a>
+        <a href="shipments.html" class="block px-4 py-3 rounded-lg hover:bg-primary transition">
+          <i class="fas fa-cube mr-3"></i> Create Shipment
+        </a>
+        <a href="shipments-list.html" class="block px-4 py-3 rounded-lg hover:bg-primary transition">
+          <i class="fas fa-list mr-3"></i> All Shipments
+        </a>
+        <a href="movements.html" class="block px-4 py-3 rounded-lg hover:bg-primary transition">
+          <i class="fas fa-map-pin mr-3"></i> Add Movement
+        </a>
+        <a href="chats.html" class="block px-4 py-3 rounded-lg bg-primary hover:bg-darkRed transition">
+          <i class="fas fa-comments mr-3"></i> Live Chat
+        </a>
+        <a href="messages.html" class="block px-4 py-3 rounded-lg hover:bg-primary transition">
+          <i class="fas fa-envelope mr-3"></i> Contact Messages
+        </a>
+        <hr class="my-4 border-primary">
+        <button id="sidebarLogoutBtn" class="w-full text-left px-4 py-3 rounded-lg hover:bg-primary transition">
+          <i class="fas fa-sign-out-alt mr-3"></i> Logout
+        </button>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 p-8">
+      <div class="max-w-6xl">
+        <h1 class="text-4xl font-bold mb-2">Live Chat Messages</h1>
+        <p class="text-gray-600 mb-8">View and reply to customer chat messages in real-time</p>
+
+        <!-- Filters -->
+        <div class="bg-white rounded-lg shadow-md p-4 mb-6 flex gap-4 items-center">
+          <button id="filterAll" class="px-4 py-2 rounded-lg bg-primary text-white hover:bg-darkRed transition">
+            <i class="fas fa-list mr-2"></i> All Messages
+          </button>
+          <button id="filterPending" class="px-4 py-2 rounded-lg bg-yellow-500 text-white hover:bg-yellow-600 transition">
+            <i class="fas fa-hourglass-half mr-2"></i> Pending Replies
+          </button>
+          <button id="filterReplied" class="px-4 py-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition">
+            <i class="fas fa-check-circle mr-2"></i> Replied
+          </button>
+        </div>
+
+        <!-- Chat Messages List -->
+        <div id="chatsList" class="space-y-4">
+          <p class="text-gray-500 text-center py-8">Loading messages...</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal for Reply -->
+  <div id="replyModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-96 overflow-y-auto">
+      <div class="p-6 border-b sticky top-0 bg-white">
+        <div class="flex justify-between items-center">
+          <h2 class="text-2xl font-bold">Reply to Message</h2>
+          <button onclick="closeReplyModal()" class="text-gray-600 hover:text-gray-800 text-2xl">×</button>
+        </div>
+      </div>
+
+      <div class="p-6">
+        <!-- Original Message Display -->
+        <div class="bg-gray-50 p-4 rounded-lg mb-6 border-l-4 border-primary">
+          <p class="text-sm text-gray-600 font-semibold mb-2">Customer Message:</p>
+          <p class="text-gray-800 mb-3" id="originalMessage"></p>
+          <p class="text-xs text-gray-500">
+            <strong>From:</strong> <span id="originalName"></span> (<span id="originalEmail"></span>)
+          </p>
+        </div>
+
+        <!-- Reply Form -->
+        <form id="replyForm" class="space-y-4">
+          <input type="hidden" id="replyingChatId" />
+          
+          <div>
+            <label class="block text-sm font-semibold mb-2">Your Reply *</label>
+            <textarea id="replyMessage" placeholder="Type your response here..." rows="5" required class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none"></textarea>
+          </div>
+
+          <div class="flex gap-3">
+            <button type="submit" class="flex-1 bg-primary text-white py-3 rounded-lg font-bold hover:bg-darkRed transition">
+              <i class="fas fa-paper-plane mr-2"></i> Send Reply & Email
+            </button>
+            <button type="button" onclick="closeReplyModal()" class="flex-1 bg-gray-300 text-gray-800 py-3 rounded-lg font-bold hover:bg-gray-400 transition">
+              Cancel
+            </button>
+          </div>
+
+          <div id="replyStatus" class="hidden p-3 rounded-lg text-center font-semibold"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auth Modal -->
+  <div id="authModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-8 max-w-md">
+      <h2 class="text-2xl font-bold mb-4">Admin Login Required</h2>
+      <p class="text-gray-600 mb-4">Please enter your admin token to continue.</p>
+      <input type="password" id="tokenInput" placeholder="Enter admin token" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-primary outline-none mb-4">
+      <button id="loginBtn" class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-darkRed transition">Login</button>
+    </div>
+  </div>
+
+  <script src="js/admin-auth.js"></script>
+  <script src="js/admin-chats.js"></script>
+</body>
+
+</html>

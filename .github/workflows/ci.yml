@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install server deps
+        working-directory: node_server
+        run: npm ci
+      - name: Run npm audit (fail on high)
+        working-directory: node_server
+        run: |
+          npm audit --audit-level=high || (echo "Vulnerabilities found" && exit 1)
+      - name: Run basic lint (if available)
+        working-directory: node_server
+        run: |
+          if [ -f package.json ] && jq -e '.scripts.lint' node_server/package.json >/dev/null 2>&1; then
+            npm run lint --prefix node_server
+          else
+            echo "No lint script defined, skipping"
+          fi
