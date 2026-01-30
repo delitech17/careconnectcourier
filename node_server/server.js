@@ -25,19 +25,19 @@ const limiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false
 });
-app.use(limiter);
+// app.use(limiter);
 
-// CORS: restrict to configured origins (comma-separated ALLOWED_ORIGINS)
-const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || 'http://localhost:3000,http://localhost:3001').split(',').map(s => s.trim());
-// Limit request body size to mitigate large payload attacks
-app.use(express.json({ limit: process.env.JSON_LIMIT || '100kb' }));
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true); // allow server-to-server or same-origin requests
-    if (ALLOWED_ORIGINS.indexOf(origin) !== -1) return callback(null, true);
-    return callback(new Error('CORS policy: This origin is not allowed.'), false);
-  }
-}));
+// // CORS: restrict to configured origins (comma-separated ALLOWED_ORIGINS)
+// const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || 'http://localhost:3000,http://localhost:3001').split(',').map(s => s.trim());
+// // Limit request body size to mitigate large payload attacks
+// app.use(express.json({ limit: process.env.JSON_LIMIT || '100kb' }));
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     if (!origin) return callback(null, true); // allow server-to-server or same-origin requests
+//     if (ALLOWED_ORIGINS.indexOf(origin) !== -1) return callback(null, true);
+//     return callback(new Error('CORS policy: This origin is not allowed.'), false);
+//   }
+// }));
 
 // ============ STATIC FILES ============
 const FRONTEND_DIR = path.join(__dirname, '..', 'frontend');
