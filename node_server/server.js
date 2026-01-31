@@ -14,6 +14,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'demo-token-12345';
 const JWT_SECRET = process.env.JWT_SECRET || 'jwt-secret-key-12345';
+const APP_URL = process.env.APP_URL || 'http://localhost:3000';
+const NODE_ENV = process.env.NODE_ENV || 'development';
 
 // Security middleware
 app.use(helmet());
@@ -25,19 +27,19 @@ const limiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false
 });
-// app.use(limiter);
+app.use(limiter);
 
-// // CORS: restrict to configured origins (comma-separated ALLOWED_ORIGINS)
-// const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || 'http://localhost:3000,http://localhost:3001').split(',').map(s => s.trim());
-// // Limit request body size to mitigate large payload attacks
-// app.use(express.json({ limit: process.env.JSON_LIMIT || '100kb' }));
-// app.use(cors({
-//   origin: function (origin, callback) {
-//     if (!origin) return callback(null, true); // allow server-to-server or same-origin requests
-//     if (ALLOWED_ORIGINS.indexOf(origin) !== -1) return callback(null, true);
-//     return callback(new Error('CORS policy: This origin is not allowed.'), false);
-//   }
-// }));
+// CORS: restrict to configured origins (comma-separated ALLOWED_ORIGINS)
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || 'http://localhost:3000,http://localhost:3001').split(',').map(s => s.trim());
+// Limit request body size to mitigate large payload attacks
+app.use(express.json({ limit: process.env.JSON_LIMIT || '100kb' }));
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // allow server-to-server or same-origin requests
+    if (ALLOWED_ORIGINS.indexOf(origin) !== -1) return callback(null, true);
+    return callback(new Error('CORS policy: This origin is not allowed.'), false);
+  }
+}));
 
 // ============ STATIC FILES ============
 const FRONTEND_DIR = path.join(__dirname, '..', 'frontend');
@@ -67,7 +69,7 @@ async function sendMovementNotification(shipment, movement) {
         <p><strong>Note:</strong> ${movement.note}</p>
         <p><strong>Time:</strong> ${movement.timestamp}</p>
         <br>
-        <p><a href="https://careconnectcourier.com/tracking.html">Track Your Shipment</a></p>
+        <p><a href="${APP_URL}/tracking.html">Track Your Shipment</a></p>
       `
     };
     await emailTransporter.sendMail(mailOptions);
