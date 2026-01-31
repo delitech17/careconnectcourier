@@ -1,6 +1,6 @@
 // Admin Messages Handler (Contact Forms)
 (function () {
-  const API_BASE = 'http://localhost:3000';
+  const API_BASE = window.location.origin;
 
   const messagesList = document.getElementById('messagesList');
   const messageModal = document.getElementById('messageModal');

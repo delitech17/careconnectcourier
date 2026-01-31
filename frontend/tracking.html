@@ -30,8 +30,7 @@
 
 <body class="bg-lightBg text-gray-800">
 
-  <!-- NAVBAR -->
-  <header class="bg-white sticky top-0 z-50 shadow-md">
+    <header class="bg-white sticky top-0 z-50 shadow-md">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
       <a href="index.html" class="text-xl font-bold text-darkRed">
         <i class="fas fa-truck-fast text-primary"></i> CareConnect <span class="text-primary">Courier</span>
@@ -54,8 +53,7 @@
     </div>
   </header>
 
-  <!-- TRACKING SECTION -->
-  <section class="py-20">
+    <section class="py-20">
     <div class="container mx-auto text-center">
       <h2 class="text-3xl font-bold mb-4 text-darkRed">Track Your Shipment</h2>
       <h3 class="text-xl text-gray-600 mb-12">Enter your tracking number to get real-time updates</h3>
@@ -78,8 +76,7 @@
           <p id="eta" class="text-sm text-gray-700"></p>
           <p id="weight" class="text-sm text-gray-700"></p>
 
-          <!-- Barcode Display -->
-          <div id="barcodeContainer" class="mt-6 p-4 bg-gray-50 rounded-lg border-2 border-gray-200">
+                    <div id="barcodeContainer" class="mt-6 p-4 bg-gray-50 rounded-lg border-2 border-gray-200">
             <h5 class="font-semibold mb-3">Shipment Barcode</h5>
             <div class="flex justify-center py-4">
               <svg id="shipmentBarcode"></svg>
@@ -87,8 +84,7 @@
             <p id="barcodeInfo" class="text-xs text-gray-600 text-center mt-2"></p>
           </div>
 
-          <!-- Static Map Image -->
-          <div id="mapContainer" class="mt-6 hidden">
+                    <div id="mapContainer" class="mt-6 hidden">
             <h5 class="font-semibold mb-2">Destination Location</h5>
             <img id="staticMapImage" src="" alt="Shipment destination map" class="w-full rounded-lg shadow-md" style="max-height: 400px; object-fit: cover;">
             <p id="mapInfo" class="text-xs text-gray-600 mt-2"></p>
@@ -105,8 +101,7 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="footer bg-black text-white py-16">
+    <footer class="footer bg-black text-white py-16">
     <div class="container mx-auto text-center">
       <a href="index.html" class="footer-logo text-2xl font-bold text-darkRed">
         <i class="fas fa-shipping-fast"></i> CareConnect <strong>Courier</strong>
@@ -143,8 +138,8 @@
     trackButton.addEventListener('click', async () => {
       const code = trackingNumber.value.trim();
       if (!code) return;
-      // adjust host/port if you run the backend elsewhere
-      const url = `http://localhost:5000/api/track/${encodeURIComponent(code)}`;
+      // Use dynamic API endpoint for both local and production environments
+      const url = `${window.location.origin}/api/track/${encodeURIComponent(code)}`;
       trackResult.classList.remove('hidden');
       details.classList.add('hidden');
       notFound.classList.add('hidden');
@@ -186,3 +181,5 @@
 </body>
 
 </html>
+
+
