@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Movement | Admin | CareConnect Courier</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind CDN -->
+  <link rel="stylesheet" href="../css/tailwind.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -21,6 +21,8 @@
       }
     }
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body class="bg-lightBg text-gray-800">
@@ -31,9 +33,6 @@
         <i class="fas fa-truck-fast text-primary"></i> CareConnect <span class="text-primary">Courier</span>
       </a>
       <nav class="hidden md:flex space-x-6 font-medium">
-        <a href="../index.html" class="hover:text-primary">Home</a>
-        <a href="index.html" class="hover:text-primary font-semibold text-primary">Admin</a>
-        <a href="../tracking.html" class="hover:text-primary">Tracking</a>
         <button id="logoutBtn" class="bg-primary text-white px-4 py-2 rounded hover:bg-darkRed transition">Logout</button>
       </nav>
     </div>

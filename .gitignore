@@ -1,0 +1,44 @@
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Build/dist
+dist/
+build/
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# Data backups (optional - keep source data, exclude large backups)
+node_server/backups/
+
+# Package manager lock files (optional - include if working in team)
+# package-lock.json
+# yarn.lock

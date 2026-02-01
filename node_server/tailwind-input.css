@@ -1,0 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Place for your custom utilities - imported after Tailwind so you can override */
+@import "../frontend/css/style.css";

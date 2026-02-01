@@ -18,7 +18,31 @@ const APP_URL = process.env.APP_URL || 'http://localhost:3000';
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 // Security middleware
-app.use(helmet());
+// Configure Helmet with a Content Security Policy that allows the CDNs
+// we use for local development (Tailwind CDN, Font Awesome CDN, jsDelivr).
+// This keeps protections enabled while allowing the frontend CDN assets to load.
+app.use(helmet({
+  // Keep a permissive CSP for local development to allow CDN assets
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.tailwindcss.com', 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'],
+      styleSrc: ["'self'", "'unsafe-inline'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'],
+      imgSrc: ["'self'", 'data:', 'https://*'],
+      connectSrc: ["'self'", 'https://*'],
+      fontSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'],
+      objectSrc: ["'none'"],
+      frameAncestors: ["'none'"],
+      baseUri: ["'self'"],
+      formAction: ["'self'"],
+    }
+  },
+  // Disable/embedder and opener policies that block cross-origin CDN loading in some browsers
+  crossOriginEmbedderPolicy: false,
+  crossOriginOpenerPolicy: false,
+  // Allow fonts and other resources from CDNs
+  crossOriginResourcePolicy: { policy: 'cross-origin' }
+}));
 
 // Basic rate-limiting
 const limiter = rateLimit({
