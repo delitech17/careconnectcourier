@@ -1,6 +1,10 @@
 // Admin Shipments List Handler
 (function () {
-  const API_BASE = '';
+  // API_BASE resolution:
+  // - If window.__API_BASE__ is set (injected), use that
+  // - If running on localhost, use relative path ('') so the same server serves API
+  // - Otherwise (deployed), default to the Render backend URL
+  const API_BASE = window.__API_BASE__ || (location.hostname === 'localhost' || location.hostname === '127.0.0.1' ? '' : 'https://careconnectcourier.onrender.com');
 
   const shipmentsTable = document.getElementById('shipmentsTable');
   const searchInput = document.getElementById('searchInput');
@@ -68,6 +72,15 @@
       if (!token) {
         initAuth();
         return;
+      }
+
+      // Debug: show outgoing headers (enable in browser console)
+      try {
+        console.log('Sending request to /admin/shipments with headers:', {
+          Authorization: `Bearer ${token}`
+        });
+      } catch (e) {
+        // ignore console errors in older browsers
       }
 
       const res = await fetch(`${API_BASE}/admin/shipments`, {

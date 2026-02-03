@@ -33,6 +33,33 @@
     to { opacity: 1; transform: scale(1) }
 }
 
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeInBlack {
+    from { opacity: 0 }
+    to { opacity: 0.5 }
+}
+
 /* =========================
      THEME + BASE
 ========================= */
@@ -47,6 +74,77 @@
     --shadow-md: 0 4px 12px rgba(2,6,23,0.08);
     --shadow-lg: 0 10px 25px rgba(2,6,23,0.1);
     --shadow-xl: 0 20px 40px rgba(2,6,23,0.15);
+}
+
+/* Prevent body scroll when menu is open */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* Mobile Menu Styles */
+#mobileMenu {
+    will-change: transform;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#menuOverlay {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-out;
+}
+
+/* Show overlay when menu is open */
+body.menu-open #menuOverlay {
+    opacity: 0.5 !important;
+    pointer-events: auto;
+}
+
+/* Show menu when open */
+body.menu-open #mobileMenu {
+    transform: translateX(0);
+}
+
+.menu-link {
+    position: relative;
+}
+
+.menu-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--primary);
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform 0.2s ease-out;
+}
+
+.menu-link:hover::before {
+    transform: scaleY(1);
+}
+
+/* Hamburger Icon Animation */
+#menuBtn i {
+    display: inline-block;
+    transition: transform 0.3s ease-out;
+}
+
+body.menu-open #menuBtn i {
+    transform: rotate(90deg);
+}
+
+/* Accessibility: Focus styles */
+#menuBtn:focus,
+#closeMenuBtn:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.menu-link:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
 }
 
 html,body{height:100%;}

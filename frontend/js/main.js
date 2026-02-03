@@ -2,41 +2,124 @@
 (function () {
   const API_BASE = (location.hostname === 'localhost') ? 'http://localhost:3000/api' : '/api';
 
-  // Mobile menu toggle
+  // ============ MOBILE MENU TOGGLE ============
   const menuBtn = document.getElementById('menuBtn');
   const closeMenuBtn = document.getElementById('closeMenuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const menuLinks = document.querySelectorAll('.menu-link');
   
-  if (menuBtn && mobileMenu) {
-    // Open menu when hamburger is clicked
-    menuBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      mobileMenu.classList.remove('hidden');
-    });
+  /**
+   * Toggle mobile menu open/close with smooth animation
+   * Prevents body scroll when menu is open
+   */
+  function toggleMenu() {
+    const isOpen = document.body.classList.contains('menu-open');
     
-    // Close menu when close button is clicked
-    if (closeMenuBtn) {
-      closeMenuBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        mobileMenu.classList.add('hidden');
-      });
+    if (isOpen) {
+      closeMenu();
+    } else {
+      openMenu();
     }
+  }
+  
+  /**
+   * Open mobile menu with animation
+   */
+  function openMenu() {
+    document.body.classList.add('menu-open');
+    mobileMenu.focus();
+    menuBtn.setAttribute('aria-expanded', 'true');
     
-    // Close menu when a link is clicked
-    const navLinks = mobileMenu.querySelectorAll('a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-      });
-    });
+    // Trap focus within mobile menu (accessibility)
+    const focusableElements = mobileMenu.querySelectorAll('button, a, [tabindex]:not([tabindex="-1"])');
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
     
-    // Close menu when clicking outside of it
-    document.addEventListener('click', (e) => {
-      if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-        mobileMenu.classList.add('hidden');
+    mobileMenu.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          lastElement.focus();
+          e.preventDefault();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          firstElement.focus();
+          e.preventDefault();
+        }
       }
     });
   }
+  
+  /**
+   * Close mobile menu with animation
+   */
+  function closeMenu() {
+    document.body.classList.remove('menu-open');
+    menuBtn.focus();
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }
+  
+  /**
+   * Handle menu button click - toggle menu
+   */
+  if (menuBtn) {
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+  }
+  
+  /**
+   * Handle close button click
+   */
+  if (closeMenuBtn) {
+    closeMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeMenu();
+    });
+  }
+  
+  /**
+   * Close menu when clicking overlay
+   */
+  if (menuOverlay) {
+    menuOverlay.addEventListener('click', closeMenu);
+  }
+  
+  /**
+   * Close menu when a navigation link is clicked
+   */
+  menuLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      closeMenu();
+    });
+  });
+  
+  /**
+   * Close menu when pressing Escape key
+   */
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.body.classList.contains('menu-open')) {
+      closeMenu();
+    }
+  });
+  
+  /**
+   * Close menu when clicking outside on larger screens
+   * (Already handled by CSS on md+ screens via hidden)
+   */
+  document.addEventListener('click', (e) => {
+    const isMenuOpen = document.body.classList.contains('menu-open');
+    const isClickOnMenu = mobileMenu.contains(e.target);
+    const isClickOnButton = menuBtn.contains(e.target);
+    
+    if (isMenuOpen && !isClickOnMenu && !isClickOnButton) {
+      closeMenu();
+    }
+  });
 
   // Load testimonials
   async function loadTestimonials() {

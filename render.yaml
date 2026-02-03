@@ -21,7 +21,9 @@ services:
           property: host
         value: https://your-app-name.onrender.com
       - key: ALLOWED_ORIGINS
-        value: https://your-app-name.onrender.com
+        value: '*'
+      - key: DEBUG_AUTH
+        value: 'false'
       - key: EMAIL_USER
         sync: false
       - key: EMAIL_PASS

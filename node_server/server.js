@@ -22,14 +22,14 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 // we use for local development (Tailwind CDN, Font Awesome CDN, jsDelivr).
 // This keeps protections enabled while allowing the frontend CDN assets to load.
 app.use(helmet({
-  // Keep a permissive CSP for local development to allow CDN assets
+  // CSP for both local development and production
   contentSecurityPolicy: {
     directives: {
-      defaultSrc: ["'self'", 'http://localhost:3000'],
+      defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.tailwindcss.com', 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'],
       styleSrc: ["'self'", "'unsafe-inline'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'],
       imgSrc: ["'self'", 'data:', 'https://*'],
-      connectSrc: ["'self'", 'http://localhost:3000', 'https://*'],
+      connectSrc: ["'self'", 'https://*', 'http://*'],
       fontSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'],
       objectSrc: ["'none'"],
       frameAncestors: ["'none'"],
@@ -60,6 +60,8 @@ app.use(express.json({ limit: process.env.JSON_LIMIT || '100kb' }));
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true); // allow server-to-server or same-origin requests
+    // Allow wildcard entry if configured
+    if (ALLOWED_ORIGINS.indexOf('*') !== -1) return callback(null, true);
     if (ALLOWED_ORIGINS.indexOf(origin) !== -1) return callback(null, true);
     // Log CORS rejections in production for debugging
     if (process.env.NODE_ENV === 'production') {
@@ -109,11 +111,34 @@ async function sendMovementNotification(shipment, movement) {
 
 // Middleware: Admin auth
 function adminAuth(req, res, next) {
-  const token = req.headers['authorization']?.replace('Bearer ', '');
-  if (token !== ADMIN_TOKEN) {
-    return res.status(401).json({ error: 'Unauthorized' });
+  const raw = req.headers['authorization'];
+  const token = raw?.replace('Bearer ', '');
+  if (process.env.DEBUG_AUTH === 'true') {
+    console.log('adminAuth - authorization header:', raw);
+    console.log('adminAuth - extracted token:', token);
+    console.log('adminAuth - expected ADMIN_TOKEN:', ADMIN_TOKEN);
   }
-  next();
+  // Allow either the raw ADMIN_TOKEN (backwards compatibility)
+  if (token === ADMIN_TOKEN) {
+    return next();
+  }
+
+  // Or allow a signed JWT token that identifies an admin
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, JWT_SECRET);
+      if (decoded && decoded.admin) {
+        req.admin = decoded;
+        return next();
+      }
+      if (process.env.DEBUG_AUTH === 'true') console.warn('adminAuth - jwt decoded but not admin');
+    } catch (err) {
+      if (process.env.DEBUG_AUTH === 'true') console.warn('adminAuth - jwt verify failed', err && err.message);
+    }
+  }
+
+  if (process.env.DEBUG_AUTH === 'true') console.warn('adminAuth - unauthorized');
+  return res.status(401).json({ error: 'Unauthorized' });
 }
 
 // Middleware: User auth (JWT)
@@ -266,6 +291,21 @@ app.post('/admin/create_shipment', adminAuth, async (req, res) => {
   shipments.push(shipment);
   await writeJSON('shipments.json', shipments);
   res.json({ ok: true, tracking_code, id: shipment.id });
+});
+
+// Admin: Exchange admin token for a short-lived JWT (optional)
+app.post('/admin/login', async (req, res) => {
+  const { token } = req.body || {};
+  if (!token) return res.status(400).json({ error: 'token is required' });
+  if (token !== ADMIN_TOKEN) return res.status(401).json({ error: 'Unauthorized' });
+
+  try {
+    const jwtToken = jwt.sign({ admin: true }, JWT_SECRET, { expiresIn: process.env.ADMIN_JWT_EXPIRES || '12h' });
+    res.json({ ok: true, token: jwtToken, expiresIn: process.env.ADMIN_JWT_EXPIRES || '12h' });
+  } catch (err) {
+    console.error('Failed to sign admin JWT:', err);
+    res.status(500).json({ error: 'Failed to create token' });
+  }
 });
 
 // Admin: Add movement to shipment
@@ -501,6 +541,9 @@ app.post('/api/chat/send', async (req, res) => {
 
 // Admin: Get all shipments
 app.get('/admin/shipments', adminAuth, async (req, res) => {
+  if (process.env.DEBUG_AUTH === 'true') {
+    console.log('/admin/shipments - request headers:', req.headers);
+  }
   const shipments = await readJSON('shipments.json');
   res.json(shipments.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
 });
