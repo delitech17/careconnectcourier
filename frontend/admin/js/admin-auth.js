@@ -10,10 +10,14 @@
 
   // Check if user is logged in
   function checkAuth() {
-    const token = localStorage.getItem('adminJWT');
-    if (token && authSection) {
-      authSection.classList.add('hidden');
-      if (adminPanel) adminPanel.classList.remove('hidden');
+    try {
+      const token = localStorage.getItem('adminJWT');
+      if (token && authSection) {
+        authSection.classList.add('hidden');
+        if (adminPanel) adminPanel.classList.remove('hidden');
+      }
+    } catch (e) {
+      console.warn('localStorage not available:', e.message);
     }
   }
 
@@ -31,8 +35,15 @@
         authStatus.className = 'text-sm mt-3 text-center text-blue-600';
         authStatus.textContent = '⏳ Verifying token...';
 
+        // Determine the correct URL for the API
+        const baseUrl = window.location.origin; // Gets full origin (https://domain.com)
+        const loginUrl = `${baseUrl}/admin/login`;
+        
+        console.log('Attempting login at:', loginUrl);
+        console.log('Token:', rawToken.substring(0, 10) + '...');
+
         // Exchange raw token for JWT
-        const response = await fetch('/admin/login', {
+        const response = await fetch(loginUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ token: rawToken })
@@ -48,8 +59,13 @@
         }
 
         // Store JWT token in localStorage
-        localStorage.setItem('adminJWT', data.token);
-        localStorage.setItem('adminTokenExpiry', new Date(Date.now() + 12 * 60 * 60 * 1000).toISOString());
+        try {
+          localStorage.setItem('adminJWT', data.token);
+          localStorage.setItem('adminTokenExpiry', new Date(Date.now() + 12 * 60 * 60 * 1000).toISOString());
+        } catch (storageErr) {
+          console.warn('Could not store token in localStorage:', storageErr.message);
+          // Still proceed - token is valid even if storage fails
+        }
 
         authStatus.className = 'text-sm mt-3 text-center text-green-600 font-semibold';
         authStatus.textContent = '✓ Access granted! Loading...';
@@ -70,8 +86,12 @@
   logoutBtns.forEach(btn => {
     if (btn) {
       btn.addEventListener('click', () => {
-        localStorage.removeItem('adminJWT');
-        localStorage.removeItem('adminTokenExpiry');
+        try {
+          localStorage.removeItem('adminJWT');
+          localStorage.removeItem('adminTokenExpiry');
+        } catch (e) {
+          console.warn('Could not clear localStorage:', e.message);
+        }
         if (authSection) authSection.classList.remove('hidden');
         if (adminPanel) adminPanel.classList.add('hidden');
         if (adminToken) adminToken.value = '';
