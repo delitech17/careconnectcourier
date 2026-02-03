@@ -26,7 +26,7 @@
 
   // Initialize auth
   function initAuth() {
-    const token = localStorage.getItem('adminToken');
+    const token = localStorage.getItem('adminJWT');
     if (!token) {
       authModal.classList.remove('hidden');
       if (loginBtn) {
@@ -49,7 +49,7 @@
       alert('Please enter a token');
       return;
     }
-    localStorage.setItem('adminToken', token);
+    localStorage.setItem('adminJWT', token);
     authModal.classList.add('hidden');
     tokenInput.value = '';
     loadShipments();
@@ -68,7 +68,7 @@
           </tr>
         `;
       }
-      const token = localStorage.getItem('adminToken');
+      const token = localStorage.getItem('adminJWT');
       if (!token) {
         initAuth();
         return;

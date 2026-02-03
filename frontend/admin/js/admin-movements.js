@@ -98,7 +98,7 @@
   // Submit movement
   addMovementForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('adminToken');
+    const token = localStorage.getItem('adminJWT');
 
     if (!token) {
       alert('Please login first');

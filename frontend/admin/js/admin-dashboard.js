@@ -4,7 +4,7 @@
 
   async function loadDashboardStats() {
     try {
-      const token = localStorage.getItem('adminToken');
+      const token = localStorage.getItem('adminJWT');
       if (!token) return;
 
       // Load chats
@@ -92,7 +92,7 @@
     if (!confirm(`Delete shipment ${trackingCode}? This cannot be undone.`)) return;
 
     try {
-      const token = localStorage.getItem('adminToken');
+      const token = localStorage.getItem('adminJWT');
       const res = await fetch(`${API_BASE}/admin/delete_shipment/${shipmentId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }

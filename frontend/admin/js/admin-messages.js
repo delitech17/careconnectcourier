@@ -12,7 +12,7 @@
   // Load contact messages
   async function loadMessages() {
     try {
-      const token = localStorage.getItem('adminToken');
+      const token = localStorage.getItem('adminJWT');
       if (!token) {
         window.location.href = 'index.html';
         return;

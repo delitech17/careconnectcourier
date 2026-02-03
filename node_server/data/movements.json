@@ -88,5 +88,15 @@
     "lng": 3.33,
     "status": "Delivered",
     "note": "already at the  delivery location come out for picture"
+  },
+  {
+    "id": "MOV1770133012865",
+    "shipment_id": "SHIP1770132912508",
+    "timestamp": "2026-02-03T15:36:52.865Z",
+    "location": "3584 Cherry Drive SE, Conyers, GA 30013-3092",
+    "lat": 7.999,
+    "lng": 7.9288,
+    "status": "Delayed",
+    "note": "THIS GOODS IS UNDER INVESTIGATION BY THE CUSTOM OFFICIALS"
   }
 ]

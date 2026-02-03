@@ -35,5 +35,25 @@
     "reply": "how are you doing",
     "created_at": "2026-01-23T14:21:00.040Z",
     "replied_at": "2026-02-03T13:48:07.541Z"
+  },
+  {
+    "id": "CHAT1770129224673",
+    "name": "noah",
+    "email": "oxaamgbpn23176@oxaam.com",
+    "message": "hello boss\n",
+    "replied": true,
+    "reply": "yes what can we do for you",
+    "created_at": "2026-02-03T14:33:44.673Z",
+    "replied_at": "2026-02-03T14:34:11.512Z"
+  },
+  {
+    "id": "CHAT1770133079215",
+    "name": "JANE",
+    "email": "JANE@GMAIL.COM",
+    "message": "hello please where is my goods",
+    "replied": true,
+    "reply": "this is custom ur goods is on the way",
+    "created_at": "2026-02-03T15:37:59.215Z",
+    "replied_at": "2026-02-03T15:38:34.952Z"
   }
 ]
