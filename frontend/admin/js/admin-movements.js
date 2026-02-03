@@ -1,6 +1,6 @@
 // Admin Movements Handler
 (function () {
-  const API_BASE = window.location.origin;
+  const API_BASE = '';
 
   const trackingCodeInput = document.getElementById('trackingCodeInput');
   const searchBtn = document.getElementById('searchBtn');

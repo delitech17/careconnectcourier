@@ -1,6 +1,6 @@
 // Admin Shipments Handler
 (function () {
-  const API_BASE = window.location.origin;
+  const API_BASE = '';
   
   const createShipmentForm = document.getElementById('createShipmentForm');
   const shipmentStatus = document.getElementById('shipmentStatus');

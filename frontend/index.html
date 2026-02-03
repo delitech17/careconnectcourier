@@ -11,23 +11,6 @@
   <link rel="stylesheet" href="css/tailwind.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#8b0000',
-            darkRed: '#660000',
-            black: '#000',
-            white: '#fff',
-            lightBg: '#f9f9f9',
-            gray: '#666',
-          }
-        }
-      }
-    }
-  </script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -39,7 +22,7 @@
         <i class="fas fa-truck-fast text-primary"></i> CareConnect <span class="text-primary">Courier</span>
       </a>
 
-      <button id="menuBtn" class="md:hidden text-2xl">
+      <button id="menuBtn" class="md:hidden text-2xl cursor-pointer hover:text-primary transition">
         <i class="fas fa-bars"></i>
       </button>
 
@@ -55,13 +38,18 @@
       </nav>
     </div>
 
-        <div id="mobileMenu" class="hidden bg-white md:hidden">
-      <a href="index.html" class="block px-6 py-3 border-b border-gray-700">Home</a>
-      <a href="services.html" class="block px-6 py-3 border-b border-gray-700">Services</a>
-      <a href="tracking.html" class="block px-6 py-3 border-b border-gray-700">Tracking</a>
-      <a href="about.html" class="block px-6 py-3 border-b border-gray-700">About</a>
-      <a href="faq.html" class="block px-6 py-3 border-b border-gray-700">FAQ</a>
-      <a href="login.html" class="block px-6 py-3">Login</a>
+    <div id="mobileMenu" class="hidden bg-white md:hidden shadow-lg">
+      <div class="flex justify-end p-4 border-b border-gray-200">
+        <button id="closeMenuBtn" class="text-2xl text-gray-600 hover:text-primary transition">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <a href="index.html" class="block px-6 py-3 border-b border-gray-200 hover:bg-gray-50 transition">Home</a>
+      <a href="services.html" class="block px-6 py-3 border-b border-gray-200 hover:bg-gray-50 transition">Services</a>
+      <a href="tracking.html" class="block px-6 py-3 border-b border-gray-200 hover:bg-gray-50 transition">Tracking</a>
+      <a href="about.html" class="block px-6 py-3 border-b border-gray-200 hover:bg-gray-50 transition">About</a>
+      <a href="faq.html" class="block px-6 py-3 border-b border-gray-200 hover:bg-gray-50 transition">FAQ</a>
+      <a href="login.html" class="block px-6 py-3 hover:bg-gray-50 transition">Login</a>
     </div>
   </header>
 

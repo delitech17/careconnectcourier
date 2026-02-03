@@ -2,11 +2,40 @@
 (function () {
   const API_BASE = (location.hostname === 'localhost') ? 'http://localhost:3000/api' : '/api';
 
-  // Mobile menu
+  // Mobile menu toggle
   const menuBtn = document.getElementById('menuBtn');
+  const closeMenuBtn = document.getElementById('closeMenuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
+  
   if (menuBtn && mobileMenu) {
-    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    // Open menu when hamburger is clicked
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      mobileMenu.classList.remove('hidden');
+    });
+    
+    // Close menu when close button is clicked
+    if (closeMenuBtn) {
+      closeMenuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        mobileMenu.classList.add('hidden');
+      });
+    }
+    
+    // Close menu when a link is clicked
+    const navLinks = mobileMenu.querySelectorAll('a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+    
+    // Close menu when clicking outside of it
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
   }
 
   // Load testimonials

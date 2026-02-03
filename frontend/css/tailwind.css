@@ -1,0 +1,4 @@
+/* Lightweight fallback to load Tailwind from CDN for local testing */
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+
+/* Project-specific overrides can go here (keeps existing style.css for custom rules) */

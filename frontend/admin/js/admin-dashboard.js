@@ -1,6 +1,6 @@
 // Admin Dashboard Handler
 (function () {
-  const API_BASE = window.location.origin || 'http://localhost:3000';
+  const API_BASE = '';
 
   async function loadDashboardStats() {
     try {

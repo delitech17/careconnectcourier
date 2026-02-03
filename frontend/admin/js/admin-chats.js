@@ -1,6 +1,6 @@
 // Admin Chats Handler
 (function () {
-  const API_BASE = window.location.origin;
+  const API_BASE = '';
 
   const filterAll = document.getElementById('filterAll');
   const filterPending = document.getElementById('filterPending');
@@ -124,13 +124,49 @@
               <i class="fas fa-check-circle mr-1"></i> Replied on ${new Date(chat.replied_at).toLocaleString()}
             </p>
           </div>
-        ` : `
-          <button onclick="openReplyModal('${chat.id}', '${chat.name.replace(/'/g, "\\'")}', '${chat.email.replace(/'/g, "\\'")}', '${chat.message.replace(/'/g, "\\'")}', '${chat.email}')" class="w-full bg-primary text-white py-2 rounded-lg hover:bg-darkRed transition font-semibold">
-            <i class="fas fa-reply mr-2"></i> Reply to Message
+        ` : ``}
+
+        <div class="flex gap-2">
+          <button class="flex-1 bg-primary text-white py-2 rounded-lg hover:bg-darkRed transition font-semibold copy-chat-btn" data-id="${chat.id}">
+            <i class="fas fa-copy mr-2"></i> Copy ID
           </button>
-        `}
+          ${!chat.replied ? `
+            <button class="flex-1 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition font-semibold reply-chat-btn" data-id="${chat.id}" data-name="${chat.name.replace(/"/g, '&quot;')}" data-email="${chat.email.replace(/"/g, '&quot;')}" data-message="${chat.message.replace(/"/g, '&quot;')}">
+              <i class="fas fa-reply mr-2"></i> Reply
+            </button>
+          ` : ``}
+        </div>
       </div>
     `).join('');
+
+    // Add copy button handlers
+    document.querySelectorAll('.copy-chat-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const id = this.getAttribute('data-id');
+        navigator.clipboard.writeText(id).then(() => {
+          const originalHTML = this.innerHTML;
+          this.innerHTML = '<i class="fas fa-check mr-2"></i> Copied!';
+          setTimeout(() => {
+            this.innerHTML = originalHTML;
+          }, 2000);
+        }).catch(() => {
+          alert('Failed to copy ID');
+        });
+      });
+    });
+
+    // Add reply button handlers
+    document.querySelectorAll('.reply-chat-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const id = this.getAttribute('data-id');
+        const name = this.getAttribute('data-name');
+        const email = this.getAttribute('data-email');
+        const message = this.getAttribute('data-message');
+        openReplyModal(id, name, email, message, email);
+      });
+    });
   }
 
   // Filter buttons

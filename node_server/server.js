@@ -25,11 +25,11 @@ app.use(helmet({
   // Keep a permissive CSP for local development to allow CDN assets
   contentSecurityPolicy: {
     directives: {
-      defaultSrc: ["'self'"],
+      defaultSrc: ["'self'", 'http://localhost:3000'],
       scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.tailwindcss.com', 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'],
       styleSrc: ["'self'", "'unsafe-inline'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'],
       imgSrc: ["'self'", 'data:', 'https://*'],
-      connectSrc: ["'self'", 'https://*'],
+      connectSrc: ["'self'", 'http://localhost:3000', 'https://*'],
       fontSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'],
       objectSrc: ["'none'"],
       frameAncestors: ["'none'"],
@@ -61,6 +61,10 @@ app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true); // allow server-to-server or same-origin requests
     if (ALLOWED_ORIGINS.indexOf(origin) !== -1) return callback(null, true);
+    // Log CORS rejections in production for debugging
+    if (process.env.NODE_ENV === 'production') {
+      console.warn(`CORS blocked request from: ${origin}`);
+    }
     return callback(new Error('CORS policy: This origin is not allowed.'), false);
   }
 }));

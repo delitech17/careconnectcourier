@@ -3,7 +3,7 @@ const path = require('path');
 
 const app = express();
 const PORT = 3001;
-const FRONTEND_DIR = path.join(__dirname, '..', 'frontend');
+const FRONTEND_DIR = path.join(__dirname, '..', 'frontend-react', 'public');
 
 // Serve frontend static files
 app.use(express.static(FRONTEND_DIR));

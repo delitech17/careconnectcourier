@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: careconnect-courier
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: cd node_server && npm install
+    startCommand: cd node_server && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: ADMIN_TOKEN
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: APP_URL
+        fromService:
+          type: web
+          property: host
+        value: https://your-app-name.onrender.com
+      - key: ALLOWED_ORIGINS
+        value: https://your-app-name.onrender.com
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: RATE_LIMIT_MAX
+        value: 200
+      - key: JSON_LIMIT
+        value: 100kb

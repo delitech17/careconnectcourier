@@ -1,6 +1,6 @@
 // Admin Messages Handler (Contact Forms)
 (function () {
-  const API_BASE = window.location.origin;
+  const API_BASE = '';
 
   const messagesList = document.getElementById('messagesList');
   const messageModal = document.getElementById('messageModal');
@@ -56,7 +56,7 @@
     }
 
     messagesList.innerHTML = messages.map(msg => `
-      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition cursor-pointer" onclick="openMessageModal('${msg.id}', '${msg.name.replace(/'/g, "\\'")}', '${msg.email.replace(/'/g, "\\'")}', '${(msg.subject || '').replace(/'/g, "\\'")}', '${msg.message.replace(/'/g, "\\'")}', '${msg.created_at}')">
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
         <div class="flex justify-between items-start mb-3">
           <div>
             <h3 class="text-lg font-bold text-gray-800">${msg.name}</h3>
@@ -72,12 +72,47 @@
           <p class="text-gray-700 line-clamp-2">${msg.message}</p>
         </div>
 
-        <div class="flex justify-between items-center text-xs text-gray-500">
-          <span><i class="fas fa-message mr-1"></i> Read full message</span>
-          <i class="fas fa-chevron-right"></i>
+        <div class="flex gap-2">
+          <button class="flex-1 bg-primary text-white px-4 py-2 rounded-lg hover:bg-darkRed transition text-sm copy-msg-btn" data-id="${msg.id}">
+            <i class="fas fa-copy mr-2"></i> Copy ID
+          </button>
+          <button class="flex-1 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition text-sm view-msg-btn" data-id="${msg.id}" data-name="${msg.name.replace(/"/g, '&quot;')}" data-email="${msg.email.replace(/"/g, '&quot;')}" data-subject="${(msg.subject || '').replace(/"/g, '&quot;')}" data-message="${msg.message.replace(/"/g, '&quot;')}" data-date="${msg.created_at}">
+            <i class="fas fa-envelope-open mr-2"></i> View
+          </button>
         </div>
       </div>
     `).join('');
+
+    // Add copy button handlers
+    document.querySelectorAll('.copy-msg-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const id = this.getAttribute('data-id');
+        navigator.clipboard.writeText(id).then(() => {
+          const originalHTML = this.innerHTML;
+          this.innerHTML = '<i class="fas fa-check mr-2"></i> Copied!';
+          setTimeout(() => {
+            this.innerHTML = originalHTML;
+          }, 2000);
+        }).catch(() => {
+          alert('Failed to copy ID');
+        });
+      });
+    });
+
+    // Add view button handlers
+    document.querySelectorAll('.view-msg-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const id = this.getAttribute('data-id');
+        const name = this.getAttribute('data-name');
+        const email = this.getAttribute('data-email');
+        const subject = this.getAttribute('data-subject');
+        const message = this.getAttribute('data-message');
+        const date = this.getAttribute('data-date');
+        openMessageModal(id, name, email, subject, message, date);
+      });
+    });
   }
 
   // Search messages
