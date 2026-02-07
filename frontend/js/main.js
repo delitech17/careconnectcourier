@@ -229,34 +229,6 @@
         document.getElementById('eta').textContent = `ETA: ${data.eta || 'N/A'}`;
         document.getElementById('weight').textContent = `Weight: ${data.weight || 'N/A'}`;
 
-        // Generate Barcode
-        try {
-          JsBarcode("#shipmentBarcode", data.tracking_code, {
-            format: "CODE128",
-            width: 2,
-            height: 50,
-            displayValue: true,
-            fontSize: 14,
-            margin: 10
-          });
-          document.getElementById('barcodeInfo').textContent = `Barcode: ${data.tracking_code}`;
-        } catch (err) {
-          console.error('Barcode error:', err);
-        }
-
-        // Static Map Image
-        const mapContainer = document.getElementById('mapContainer');
-        const staticMapImage = document.getElementById('staticMapImage');
-        const mapInfo = document.getElementById('mapInfo');
-        if (data.dest_lat && data.dest_lng) {
-          mapContainer.classList.remove('hidden');
-          const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${data.dest_lat},${data.dest_lng}&zoom=7&size=600x400&markers=color:red%7C${data.dest_lat},${data.dest_lng}&style=feature:all|element:labels|visibility:off&style=feature:water|color:0xb3d9ff&style=feature:land|color:0xf3f3f3&key=AIzaSyDummyKey`;
-          staticMapImage.src = mapUrl;
-          mapInfo.textContent = `Destination: ${data.destination || 'N/A'} (${data.dest_lat.toFixed(4)}, ${data.dest_lng.toFixed(4)})`;
-        } else {
-          mapContainer.classList.add('hidden');
-        }
-
         const movements = document.getElementById('movements');
         movements.innerHTML = '';
         (data.movements || []).forEach(m => {
@@ -267,10 +239,16 @@
 
         details.classList.remove('hidden');
       } catch (err) {
-        notFound.textContent = 'Error contacting tracking service.';
+        // Silent error handling - don't show error message
         notFound.classList.remove('hidden');
+        notFound.textContent = 'Unable to retrieve tracking information. Please try again.';
         console.error('Track error:', err);
       }
+    });
+
+    // Allow Enter key to track
+    trackingNumber.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') trackButton.click();
     });
   }
 

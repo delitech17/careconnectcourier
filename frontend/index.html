@@ -111,19 +111,19 @@
 
       <div class="hero-form flex-1 animate-slideUp">
         <div class="tracking-card bg-white p-6 rounded-xl shadow-lg border-2 border-primary">
-          <h3 class="text-xl mb-4">Track Your Shipment</h3>
-          <p>Enter your tracking number below for real-time updates</p>
+          <h3 class="text-xl mb-4 font-semibold">Track Your Shipment</h3>
+          <p class="text-gray-600 mb-4">Enter your tracking number below for real-time updates</p>
           <div class="tracking-input-group flex mt-4">
-            <input type="text" id="trackingNumber" placeholder="e.g., CC789456123" class="tracking-input w-full p-3 border-2 border-gray-300 rounded-l-lg focus:outline-none">
+            <input type="text" id="trackingNumber" placeholder="e.g., CC789456123" class="tracking-input w-full p-3 border-2 border-gray-300 rounded-l-lg focus:outline-none focus:border-primary">
             <button id="trackButton" class="btn-track bg-primary text-white py-3 px-6 rounded-r-lg hover:bg-darkRed transition">
               <i class="fas fa-arrow-right"></i> Track Now
             </button>
           </div>
           <p class="mt-4 text-gray-600 text-sm">
-            <i class="fas fa-info-circle"></i> Need help? <a href="#">Find your tracking number</a>
+            <i class="fas fa-info-circle"></i> Need help? <a href="#" class="text-primary hover:underline">Find your tracking number</a>
           </p>
           
-                    <div id="trackResult" class="mt-6 hidden">
+          <div id="trackResult" class="mt-6 hidden">
             <div id="notFound" class="text-red-600 text-center font-semibold hidden">
               <i class="fas fa-exclamation-circle mr-2"></i>Tracking code not found.
             </div>
@@ -340,66 +340,6 @@
 
   <script src="js/main.js"></script>
   <script src="js/chat.js"></script>
-  <script>
-    // Tracking fetch logic for homepage
-    const trackButton = document.getElementById('trackButton');
-    const trackingNumber = document.getElementById('trackingNumber');
-    const trackResult = document.getElementById('trackResult');
-    const details = document.getElementById('details');
-    const notFound = document.getElementById('notFound');
-    const API_BASE = (location.hostname === 'localhost') ? 'http://localhost:3000' : '';
-
-    if (trackButton) {
-      trackButton.addEventListener('click', async () => {
-        const code = trackingNumber.value.trim();
-        if (!code) {
-          alert('Please enter a tracking number');
-          return;
-        }
-
-        const url = `${API_BASE}/api/track/${encodeURIComponent(code)}`;
-        trackResult.classList.remove('hidden');
-        details.classList.add('hidden');
-        notFound.classList.add('hidden');
-
-        try {
-          const res = await fetch(url);
-          if (res.status === 404) {
-            notFound.classList.remove('hidden');
-            return;
-          }
-          
-          const data = await res.json();
-          document.getElementById('code').textContent = `Tracking: ${data.tracking_code}`;
-          document.getElementById('owner').textContent = `Owner: ${data.owner_name || 'N/A'}`;
-          document.getElementById('company').textContent = `Company: ${data.company || 'N/A'}`;
-          document.getElementById('desc').textContent = `Description: ${data.description || 'N/A'}`;
-          document.getElementById('route').textContent = `Route: ${data.origin || ''} → ${data.destination || ''}`;
-          document.getElementById('eta').textContent = `ETA: ${data.eta || 'N/A'}`;
-          document.getElementById('weight').textContent = `Weight: ${data.weight || 'N/A'}`;
-
-          const movements = document.getElementById('movements');
-          movements.innerHTML = '';
-          (data.movements || []).forEach(m => {
-            const li = document.createElement('li');
-            li.textContent = `${m.timestamp || ''} — ${m.location || ''} — ${m.status || ''} ${m.note ? `(${m.note})` : ''}`;
-            movements.appendChild(li);
-          });
-
-          details.classList.remove('hidden');
-        } catch (err) {
-          console.error('Error:', err);
-          notFound.textContent = 'Error contacting tracking service.';
-          notFound.classList.remove('hidden');
-        }
-      });
-
-      // Allow Enter key to track
-      trackingNumber.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') trackButton.click();
-      });
-    }
-  </script>
 </body>
 
 </html>
