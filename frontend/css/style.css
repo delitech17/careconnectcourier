@@ -76,32 +76,10 @@
     --shadow-xl: 0 20px 40px rgba(2,6,23,0.15);
 }
 
-/* Prevent body scroll when menu is open */
-body.menu-open {
-    overflow: hidden;
-}
-
 /* Mobile Menu Styles */
 #mobileMenu {
-    will-change: transform;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-#menuOverlay {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease-out;
-}
-
-/* Show overlay when menu is open */
-body.menu-open #menuOverlay {
-    opacity: 0.5 !important;
-    pointer-events: auto;
-}
-
-/* Show menu when open */
-body.menu-open #mobileMenu {
-    transform: translateX(0);
+    will-change: max-height;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .menu-link {
@@ -131,13 +109,8 @@ body.menu-open #mobileMenu {
     transition: transform 0.3s ease-out;
 }
 
-body.menu-open #menuBtn i {
-    transform: rotate(90deg);
-}
-
 /* Accessibility: Focus styles */
-#menuBtn:focus,
-#closeMenuBtn:focus {
+#menuBtn:focus {
     outline: 2px solid var(--primary);
     outline-offset: 2px;
 }
@@ -433,21 +406,36 @@ aside nav hr{
     transition:all 0.2s ease;
 }
 #menuBtn:hover{background:rgba(139,0,0,0.06)}
+
+/* Mobile Dropdown Menu */
 #mobileMenu{
     display:none;
-    position:relative;
+    width:100%;
     background:var(--white);
-    padding:0.75rem 0;
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.3s ease-out;
 }
+
+#mobileMenu.active {
+    max-height: 500px;
+}
+
 #mobileMenu a{
     display:block;
-    padding:.75rem 0;
+    padding:0.75rem 1.5rem;
     color:#374151;
     text-decoration:none;
     font-weight:600;
     transition:all 0.2s ease;
+    border-left: 4px solid transparent;
 }
-#mobileMenu a:hover{color:var(--primary);padding-left:.5rem}
+
+#mobileMenu a:hover{
+    color:var(--primary);
+    background:rgba(139,0,0,0.05);
+    border-left-color:var(--primary);
+}
 
 @media(min-width:768px){
     .md\:hidden{display:none!important}
@@ -460,8 +448,7 @@ aside nav hr{
     .nav-links{display:none}
     .nav-center{flex:0}
     #menuBtn{display:inline-flex}
-    #mobileMenu{display:block;padding-top:.75rem}
-    #mobileMenu a{display:block;padding:.6rem 0;color:#374151}
+    #mobileMenu{display:block;padding:0;max-height:0}
 }
 
 /* Hero */

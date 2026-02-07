@@ -4,61 +4,22 @@
 
   // ============ MOBILE MENU TOGGLE ============
   const menuBtn = document.getElementById('menuBtn');
-  const closeMenuBtn = document.getElementById('closeMenuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
-  const menuOverlay = document.getElementById('menuOverlay');
   const menuLinks = document.querySelectorAll('.menu-link');
   
   /**
-   * Toggle mobile menu open/close with smooth animation
-   * Prevents body scroll when menu is open
+   * Toggle mobile menu open/close
    */
   function toggleMenu() {
-    const isOpen = document.body.classList.contains('menu-open');
-    
-    if (isOpen) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
+    mobileMenu.classList.toggle('active');
+    menuBtn.setAttribute('aria-expanded', mobileMenu.classList.contains('active'));
   }
   
   /**
-   * Open mobile menu with animation
-   */
-  function openMenu() {
-    document.body.classList.add('menu-open');
-    mobileMenu.focus();
-    menuBtn.setAttribute('aria-expanded', 'true');
-    
-    // Trap focus within mobile menu (accessibility)
-    const focusableElements = mobileMenu.querySelectorAll('button, a, [tabindex]:not([tabindex="-1"])');
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-    
-    mobileMenu.addEventListener('keydown', (e) => {
-      if (e.key !== 'Tab') return;
-      
-      if (e.shiftKey) {
-        if (document.activeElement === firstElement) {
-          lastElement.focus();
-          e.preventDefault();
-        }
-      } else {
-        if (document.activeElement === lastElement) {
-          firstElement.focus();
-          e.preventDefault();
-        }
-      }
-    });
-  }
-  
-  /**
-   * Close mobile menu with animation
+   * Close mobile menu
    */
   function closeMenu() {
-    document.body.classList.remove('menu-open');
-    menuBtn.focus();
+    mobileMenu.classList.remove('active');
     menuBtn.setAttribute('aria-expanded', 'false');
   }
   
@@ -70,23 +31,6 @@
       e.stopPropagation();
       toggleMenu();
     });
-  }
-  
-  /**
-   * Handle close button click
-   */
-  if (closeMenuBtn) {
-    closeMenuBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      closeMenu();
-    });
-  }
-  
-  /**
-   * Close menu when clicking overlay
-   */
-  if (menuOverlay) {
-    menuOverlay.addEventListener('click', closeMenu);
   }
   
   /**
@@ -102,17 +46,16 @@
    * Close menu when pressing Escape key
    */
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && document.body.classList.contains('menu-open')) {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
       closeMenu();
     }
   });
   
   /**
-   * Close menu when clicking outside on larger screens
-   * (Already handled by CSS on md+ screens via hidden)
+   * Close menu when clicking outside
    */
   document.addEventListener('click', (e) => {
-    const isMenuOpen = document.body.classList.contains('menu-open');
+    const isMenuOpen = mobileMenu.classList.contains('active');
     const isClickOnMenu = mobileMenu.contains(e.target);
     const isClickOnButton = menuBtn.contains(e.target);
     
