@@ -836,6 +836,140 @@ th,td{padding:.75rem;border-bottom:1px solid rgba(15,23,42,0.04);text-align:left
 #chatBox form{background:#ffffff;padding:1rem;border-top:1px solid #e6eef6}
 #chatBox input,#chatBox textarea{border:1px solid #e6eef6}
 
+/* Tracking Details Formatting - Label on one line, value on next */
+#details p {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+#details p strong {
+    display: block;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#details #code {
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+#details #code strong {
+    color: var(--dark-red);
+    font-size: 0.875rem;
+}
+
+#details #code br + text {
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+/* Barcode Container - Fully Responsive */
+#barcodeContainer {
+    border: 2px dashed var(--primary);
+    background: linear-gradient(135deg, #fafafa 0%, #f3f4f6 100%);
+    padding: 2rem 1rem;
+    border-radius: 0.75rem;
+    margin: 2rem 0;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#barcodeContainer h5 {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+/* Barcode SVG - Responsive wrapper */
+#barcodeWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+}
+
+#shipmentBarcode {
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+    min-height: 100px;
+}
+
+#barcodeInfo {
+    font-size: 0.75rem;
+    color: #6b7280;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 1px;
+    word-break: break-all;
+}
+
+/* Desktop view - larger barcode */
+@media(min-width: 768px) {
+    #barcodeContainer {
+        padding: 2.5rem 2rem;
+    }
+    
+    #barcodeContainer h5 {
+        font-size: 1.125rem;
+        margin-bottom: 2rem;
+    }
+    
+    #barcodeWrapper {
+        padding: 1.5rem;
+    }
+    
+    #shipmentBarcode {
+        min-height: 120px;
+    }
+    
+    #barcodeInfo {
+        font-size: 0.875rem;
+    }
+}
+
+/* Mobile view - optimized for small screens */
+@media(max-width: 480px) {
+    #barcodeContainer {
+        padding: 1.5rem 0.75rem;
+        margin: 1.5rem 0;
+    }
+    
+    #barcodeContainer h5 {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    
+    #barcodeWrapper {
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    #shipmentBarcode {
+        min-height: 80px;
+        max-width: 100%;
+    }
+    
+    #barcodeInfo {
+        font-size: 0.7rem;
+        letter-spacing: 0.5px;
+    }
+}
+
 @media(max-width:480px){
     #chatWidget{right:.75rem;bottom:.75rem}
     #chatToggleBtn{width:48px;height:48px}

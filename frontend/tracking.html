@@ -94,12 +94,12 @@
           <p id="eta" class="text-sm text-gray-700"></p>
           <p id="weight" class="text-sm text-gray-700"></p>
 
-          <div id="barcodeContainer" class="mt-6 p-4 bg-gray-50 rounded-lg border-2 border-gray-200">
-            <h5 class="font-semibold mb-3">Shipment Barcode</h5>
-            <div class="flex justify-center py-4">
+          <div id="barcodeContainer">
+            <h5>Shipment Barcode</h5>
+            <div id="barcodeWrapper">
               <svg id="shipmentBarcode"></svg>
             </div>
-            <p id="barcodeInfo" class="text-xs text-gray-600 text-center mt-2"></p>
+            <p id="barcodeInfo"></p>
           </div>
 
           <h5 class="mt-6 font-semibold">Movement History</h5>
@@ -131,6 +131,7 @@
     </div>
   </footer>
 
+  <script src="js/barcode-utils.js"></script>
   <script src="js/main.js"></script>
 </body>
 

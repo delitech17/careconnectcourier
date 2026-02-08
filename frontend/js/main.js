@@ -164,13 +164,19 @@
         }
         const data = await res.json();
         
-        document.getElementById('code').textContent = `Tracking: ${data.tracking_code}`;
-        document.getElementById('owner').textContent = `Owner: ${data.owner_name || ''}`;
-        document.getElementById('company').textContent = `Company: ${data.company || ''}`;
-        document.getElementById('desc').textContent = `Description: ${data.description || ''}`;
-        document.getElementById('route').textContent = `Route: ${data.origin || ''} → ${data.destination || ''}`;
-        document.getElementById('eta').textContent = `ETA: ${data.eta || 'N/A'}`;
-        document.getElementById('weight').textContent = `Weight: ${data.weight || 'N/A'}`;
+        document.getElementById('code').innerHTML = `<strong>Tracking Code</strong><br/>${data.tracking_code}`;
+        document.getElementById('owner').innerHTML = `<strong>Owner Name</strong><br/>${data.owner_name || ''}`;
+        document.getElementById('company').innerHTML = `<strong>Company</strong><br/>${data.company || ''}`;
+        document.getElementById('desc').innerHTML = `<strong>Description</strong><br/>${data.description || ''}`;
+        document.getElementById('route').innerHTML = `<strong>Route</strong><br/>${data.origin || ''} → ${data.destination || ''}`;
+        document.getElementById('eta').innerHTML = `<strong>ETA</strong><br/>${data.eta || 'N/A'}`;
+        document.getElementById('weight').innerHTML = `<strong>Weight</strong><br/>${data.weight || 'N/A'}`;
+
+        // Generate barcode if available
+        const barcodeContainer = document.getElementById('shipmentBarcode');
+        if (barcodeContainer) {
+          generateBarcode(data.tracking_code, barcodeContainer);
+        }
 
         const movements = document.getElementById('movements');
         movements.innerHTML = '';
@@ -193,6 +199,53 @@
     trackingNumber.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') trackButton.click();
     });
+  }
+
+  /**
+   * Generate barcode using JsBarcode library and BarcodeUtils - fully responsive
+   */
+  function generateBarcode(code, container) {
+    if (!container) return;
+    
+    try {
+      // Use BarcodeUtils if available for responsive design
+      if (typeof BarcodeUtils !== 'undefined') {
+        BarcodeUtils.generate(code, container);
+      } else {
+        // Fallback: basic generation
+        container.innerHTML = '';
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.id = 'barcodeSvg';
+        svg.setAttribute('style', 'background: white; border-radius: 4px; max-width: 100%; height: auto;');
+        container.appendChild(svg);
+        
+        if (typeof JsBarcode !== 'undefined') {
+          JsBarcode("#barcodeSvg", code, {
+            format: "CODE128",
+            width: 2,
+            height: 100,
+            displayValue: true,
+            fontSize: 14,
+            margin: 10
+          });
+        }
+      }
+      
+      // Update barcode info if element exists
+      const barcodeInfo = document.getElementById('barcodeInfo');
+      if (barcodeInfo) {
+        barcodeInfo.textContent = `Tracking Code: ${code}`;
+        barcodeInfo.style.marginTop = '0.5rem';
+      }
+    } catch (err) {
+      console.error('Barcode generation error:', err);
+      // Fallback: display error message
+      const barcodeInfo = document.getElementById('barcodeInfo');
+      if (barcodeInfo) {
+        barcodeInfo.textContent = `Error generating barcode. Code: ${code}`;
+        barcodeInfo.style.color = '#dc2626';
+      }
+    }
   }
 
   // Initialize

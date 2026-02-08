@@ -12,6 +12,8 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+    <!-- JsBarcode Library -->
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 </head>
 
 <body class="bg-lightBg text-gray-800">
@@ -112,6 +114,13 @@
               <p id="route" class="text-sm text-gray-700 font-semibold mt-2"></p>
               <p id="eta" class="text-sm text-gray-700"></p>
               <p id="weight" class="text-sm text-gray-700"></p>
+              <div id="barcodeContainer">
+                <h5>Shipment Barcode</h5>
+                <div id="barcodeWrapper">
+                  <svg id="shipmentBarcode"></svg>
+                </div>
+                <p id="barcodeInfo"></p>
+              </div>
               <h5 class="mt-4 font-semibold text-gray-800">Movement History</h5>
               <ul id="movements" class="mt-2 list-disc list-inside text-sm text-gray-700"></ul>
             </div>
@@ -315,6 +324,7 @@
     </div>
   </footer>
 
+  <script src="js/barcode-utils.js"></script>
   <script src="js/main.js"></script>
   <script src="js/chat.js"></script>
 </body>
